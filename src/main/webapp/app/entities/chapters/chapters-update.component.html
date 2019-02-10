@@ -1,0 +1,101 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-chapters-heading">Create or edit a Chapters</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!chapters.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="chapters.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_status">Status</label>
+                    <select class="form-control" name="status" [(ngModel)]="chapters.status" id="field_status" >
+                        <option value="Open">Open</option>
+                        <option value="Accepted">Accepted</option>
+                        <option value="Started">Started</option>
+                        <option value="Hold">Hold</option>
+                        <option value="Close">Close</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_activated">Activated</label>
+                    <input type="text" class="form-control" name="activated" id="field_activated"
+                        [(ngModel)]="chapters.activated" required/>
+                    <div [hidden]="!(editForm.controls.activated?.dirty && editForm.controls.activated?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.activated?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_createdDate">Created Date</label>
+                    <div class="input-group">
+                        <input id="field_createdDate" type="text" class="form-control" name="createdDate" ngbDatepicker  #createdDateDp="ngbDatepicker" [(ngModel)]="chapters.createdDate"
+                        required/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="createdDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                    <div [hidden]="!(editForm.controls.createdDate?.dirty && editForm.controls.createdDate?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.createdDate?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_createdBy">Created By</label>
+                    <input type="text" class="form-control" name="createdBy" id="field_createdBy"
+                        [(ngModel)]="chapters.createdBy" required/>
+                    <div [hidden]="!(editForm.controls.createdBy?.dirty && editForm.controls.createdBy?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.createdBy?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_lastUpdatedDate">Last Updated Date</label>
+                    <div class="input-group">
+                        <input id="field_lastUpdatedDate" type="text" class="form-control" name="lastUpdatedDate" ngbDatepicker  #lastUpdatedDateDp="ngbDatepicker" [(ngModel)]="chapters.lastUpdatedDate"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="lastUpdatedDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_lastUpdatedBy">Last Updated By</label>
+                    <input type="text" class="form-control" name="lastUpdatedBy" id="field_lastUpdatedBy"
+                        [(ngModel)]="chapters.lastUpdatedBy" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_initiator">Initiator</label>
+                    <select class="form-control" id="field_initiator" name="initiator" [(ngModel)]="chapters.initiatorId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="iDBUserOption.id" *ngFor="let iDBUserOption of idbusers; trackBy: trackIDBUserById">{{iDBUserOption.email}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_partner">Partner</label>
+                    <select class="form-control" id="field_partner" name="partner" [(ngModel)]="chapters.partnerId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="iDBUserOption.id" *ngFor="let iDBUserOption of idbusers; trackBy: trackIDBUserById">{{iDBUserOption.email}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

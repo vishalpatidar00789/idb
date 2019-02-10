@@ -1,34 +1,31 @@
 
-entity User {
-	id String required, // primary key
+entity IDBUser {
 	email String required, // unique key
-    password String, // required in case paid user
-    activated Boolean,
-    profile Profile,
+    password String required, // required in case paid user
+    activated Boolean required,
     accessToken String,
     sessionToken String,
     lastLoginDate LocalDate,
     lastDeactivatedDate LocalDate,
-    account Account,
-    roles Roles,
+    userRoles UserRoles required,
     verified Boolean,
     verificationMethod String,
     isReportedScam Boolean,
     lastLogout LocalDate,
     lastActivatedDate LocalDate,
-    createdDate LocalDate,
-    createdBy String,
+    createdDate LocalDate required,
+    createdBy String required,
     lastUpdatedDate LocalDate,
     lastUpdatedBy String
 }
-enum Roles {
+enum UserRoles {
 	ADMIN, USER, SUPERADMIN
 }
-entity Profile {
-	id String required,
+entity UserProfile {
     screenName String,
     profilePic Blob,
     gender String required, // required
+    dob String,
     age Integer required,
     country String required, // default India
     state String,
@@ -38,29 +35,25 @@ entity Profile {
     interests Interests,
     offersings Offerings,
     status ProfileStatus,
-    createdDate LocalDate,
-    createdBy String,
+    createdDate LocalDate required,
+    createdBy String required,
     lastUpdatedDate LocalDate,
     lastUpdatedBy String
 }
 
-entity Settings {
-	id String required,
+entity ProfileSettings {
     key String required,
     isPublic Boolean required,
-    profile Profile,
-    createdDate LocalDate,
-    createdBy String,
+    createdDate LocalDate required,
+    createdBy String required,
     lastUpdatedDate LocalDate,
     lastUpdatedBy String
 }
 
 entity Photos {
-	id String required,
-    image Blob,
-    profile Profile,
-    createdDate LocalDate,
-    createdBy String,
+    image Blob required,
+    createdDate LocalDate required,
+    createdBy String required,
     lastUpdatedDate LocalDate,
     lastUpdatedBy String
 }
@@ -77,19 +70,16 @@ enum ProfileStatus {
 enum Offerings {
 	BlindDate, ShortDate, Hookups, CasualRelationships, Chat, VideoChat
 }
-entity Account {
-	id String required,
+entity UserAccount {
     remainingChapters Integer required,
-    currentPackage Package required,
     currPackageStartDate LocalDate required,
     currPackageEndDate LocalDate required,
     userDiscount Integer,
     activated String required,
     accountType AccountType required,
-    chapters Chapters,
     perDayChapterLimit Integer required,
-    createdDate LocalDate,
-    createdBy String,
+    createdDate LocalDate required,
+    createdBy String required,
     lastUpdatedDate LocalDate,
     lastUpdatedBy String
 }
@@ -98,7 +88,6 @@ enum AccountType {
 	Paid, Free, Hold
 }
 entity Packages {
-	id String required,
     title String required,
     price Integer required,
     type String required,
@@ -106,20 +95,18 @@ entity Packages {
     totalChapters Integer required,
     discount Integer,
     activated String required,
-    createdDate LocalDate,
-    createdBy String,
+    createdDate LocalDate required,
+    createdBy String required,
     lastUpdatedDate LocalDate,
     lastUpdatedBy String
 }
 
 entity Chapters {
 	id String required,
-    initiator User required,
-    partner User required,
     status ChapterStatus,
     activated String required,
-	createdDate LocalDate,
-    createdBy String,
+	createdDate LocalDate required,
+    createdBy String required,
     lastUpdatedDate LocalDate,
     lastUpdatedBy String
 }
@@ -128,17 +115,14 @@ enum ChapterStatus {
 	Open, Accepted, Started, Hold, Close
 }
 entity Payments {
-	id String required,
-	account Account required,
-    package Packages required,
     vendor String required,
     status PaymentStatus required,
     paymentValue Integer required,
     initiatedDate LocalDate,
     confirmDate LocalDate,
-    activated Boolean // status is represented by activated flag
-    createdDate LocalDate,
-    createdBy String,
+    activated Boolean required, // status is represented by activated flag
+    createdDate LocalDate required,
+    createdBy String required,
     lastUpdatedDate LocalDate,
     lastUpdatedBy String
 }
@@ -148,17 +132,18 @@ enum PaymentStatus {
 }
 
 relationship OneToOne {
-	User{profile} to Profile,
-    User{account} to Account,
-    Account{package} to Packages,
-    Payments{account} to Account,
-    Payments{package} to Packages
+	UserProfile{user(email)} to IDBUser{userProfile},
+    UserAccount{user(email)} to IDBUser{userAccount},
+    UserAccount{currentPackage} to Packages
 }
 
 relationship OneToMany {
-    Account{chapters} to Chapters,
-    Profile{pics} to Photos,
-    Profile{settings} to Settings
+    IDBUser{initiatedChapters} to Chapters{initiator(email)},
+    IDBUser{partnerChapters} to Chapters{partner(email)},
+    UserProfile{pics} to Photos{userProfile},
+    UserProfile{profileSettings} to ProfileSettings{userProfile},
+    UserAccount{payments} to Payments{userAccount},
+    Packages to Payments{appliedPackage}
 }
 // Set pagination options
 paginate * with infinite-scroll

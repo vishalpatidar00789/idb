@@ -1,0 +1,172 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-user-account-heading">Create or edit a User Account</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!userAccount.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="userAccount.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_remainingChapters">Remaining Chapters</label>
+                    <input type="number" class="form-control" name="remainingChapters" id="field_remainingChapters"
+                        [(ngModel)]="userAccount.remainingChapters" required/>
+                    <div [hidden]="!(editForm.controls.remainingChapters?.dirty && editForm.controls.remainingChapters?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.remainingChapters?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.remainingChapters?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_currPackageStartDate">Curr Package Start Date</label>
+                    <div class="input-group">
+                        <input id="field_currPackageStartDate" type="text" class="form-control" name="currPackageStartDate" ngbDatepicker  #currPackageStartDateDp="ngbDatepicker" [(ngModel)]="userAccount.currPackageStartDate"
+                        required/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="currPackageStartDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                    <div [hidden]="!(editForm.controls.currPackageStartDate?.dirty && editForm.controls.currPackageStartDate?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.currPackageStartDate?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_currPackageEndDate">Curr Package End Date</label>
+                    <div class="input-group">
+                        <input id="field_currPackageEndDate" type="text" class="form-control" name="currPackageEndDate" ngbDatepicker  #currPackageEndDateDp="ngbDatepicker" [(ngModel)]="userAccount.currPackageEndDate"
+                        required/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="currPackageEndDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                    <div [hidden]="!(editForm.controls.currPackageEndDate?.dirty && editForm.controls.currPackageEndDate?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.currPackageEndDate?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_userDiscount">User Discount</label>
+                    <input type="number" class="form-control" name="userDiscount" id="field_userDiscount"
+                        [(ngModel)]="userAccount.userDiscount" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_activated">Activated</label>
+                    <input type="text" class="form-control" name="activated" id="field_activated"
+                        [(ngModel)]="userAccount.activated" required/>
+                    <div [hidden]="!(editForm.controls.activated?.dirty && editForm.controls.activated?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.activated?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_accountType">Account Type</label>
+                    <select class="form-control" name="accountType" [(ngModel)]="userAccount.accountType" id="field_accountType"  required>
+                        <option value="Paid">Paid</option>
+                        <option value="Free">Free</option>
+                        <option value="Hold">Hold</option>
+                    </select>
+                    <div [hidden]="!(editForm.controls.accountType?.dirty && editForm.controls.accountType?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.accountType?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_perDayChapterLimit">Per Day Chapter Limit</label>
+                    <input type="number" class="form-control" name="perDayChapterLimit" id="field_perDayChapterLimit"
+                        [(ngModel)]="userAccount.perDayChapterLimit" required/>
+                    <div [hidden]="!(editForm.controls.perDayChapterLimit?.dirty && editForm.controls.perDayChapterLimit?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.perDayChapterLimit?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.perDayChapterLimit?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_createdDate">Created Date</label>
+                    <div class="input-group">
+                        <input id="field_createdDate" type="text" class="form-control" name="createdDate" ngbDatepicker  #createdDateDp="ngbDatepicker" [(ngModel)]="userAccount.createdDate"
+                        required/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="createdDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                    <div [hidden]="!(editForm.controls.createdDate?.dirty && editForm.controls.createdDate?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.createdDate?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_createdBy">Created By</label>
+                    <input type="text" class="form-control" name="createdBy" id="field_createdBy"
+                        [(ngModel)]="userAccount.createdBy" required/>
+                    <div [hidden]="!(editForm.controls.createdBy?.dirty && editForm.controls.createdBy?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.createdBy?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_lastUpdatedDate">Last Updated Date</label>
+                    <div class="input-group">
+                        <input id="field_lastUpdatedDate" type="text" class="form-control" name="lastUpdatedDate" ngbDatepicker  #lastUpdatedDateDp="ngbDatepicker" [(ngModel)]="userAccount.lastUpdatedDate"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="lastUpdatedDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_lastUpdatedBy">Last Updated By</label>
+                    <input type="text" class="form-control" name="lastUpdatedBy" id="field_lastUpdatedBy"
+                        [(ngModel)]="userAccount.lastUpdatedBy" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_user">User</label>
+                    <select class="form-control" id="field_user" name="user" [(ngModel)]="userAccount.userId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="iDBUserOption.id" *ngFor="let iDBUserOption of users; trackBy: trackIDBUserById">{{iDBUserOption.email}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_currentPackage">Current Package</label>
+                    <select class="form-control" id="field_currentPackage" name="currentPackage" [(ngModel)]="userAccount.currentPackageId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="packagesOption.id" *ngFor="let packagesOption of currentpackages; trackBy: trackPackagesById">{{packagesOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

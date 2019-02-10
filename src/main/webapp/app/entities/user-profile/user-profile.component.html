@@ -1,0 +1,103 @@
+<div>
+    <h2 id="page-heading">
+        <span>User Profiles</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-user-profile" [routerLink]="['/user-profile/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new User Profile
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="userProfiles">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="screenName"><span>Screen Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="profilePic"><span>Profile Pic</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="gender"><span>Gender</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="dob"><span>Dob</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="age"><span>Age</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="country"><span>Country</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="state"><span>State</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="city"><span>City</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="pincode"><span>Pincode</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="personality"><span>Personality</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="interests"><span>Interests</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="offersings"><span>Offersings</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="status"><span>Status</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="createdDate"><span>Created Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="createdBy"><span>Created By</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="lastUpdatedDate"><span>Last Updated Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="lastUpdatedBy"><span>Last Updated By</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="userEmail"><span>User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let userProfile of userProfiles ;trackBy: trackId">
+                <td><a [routerLink]="['/user-profile', userProfile.id, 'view' ]">{{userProfile.id}}</a></td>
+                <td>{{userProfile.screenName}}</td>
+                <td>
+                    <a *ngIf="userProfile.profilePic" (click)="openFile(userProfile.profilePicContentType, userProfile.profilePic)">open</a>
+                    <span *ngIf="userProfile.profilePic">{{userProfile.profilePicContentType}}, {{byteSize(userProfile.profilePic)}}</span>
+                </td>
+                <td>{{userProfile.gender}}</td>
+                <td>{{userProfile.dob}}</td>
+                <td>{{userProfile.age}}</td>
+                <td>{{userProfile.country}}</td>
+                <td>{{userProfile.state}}</td>
+                <td>{{userProfile.city}}</td>
+                <td>{{userProfile.pincode}}</td>
+                <td>{{userProfile.personality}}</td>
+                <td>{{userProfile.interests}}</td>
+                <td>{{userProfile.offersings}}</td>
+                <td>{{userProfile.status}}</td>
+                <td>{{userProfile.createdDate | date:'mediumDate'}}</td>
+                <td>{{userProfile.createdBy}}</td>
+                <td>{{userProfile.lastUpdatedDate | date:'mediumDate'}}</td>
+                <td>{{userProfile.lastUpdatedBy}}</td>
+                <td>
+                    <div *ngIf="userProfile.userId">
+                        <a [routerLink]="['../idb-user', userProfile.userId , 'view' ]" >{{userProfile.userEmail}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/user-profile', userProfile.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/user-profile', userProfile.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'user-profile', { outlets: { popup: userProfile.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="userProfiles && userProfiles.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

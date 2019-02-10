@@ -1,0 +1,64 @@
+{
+    "name": "Chapters",
+    "fields": [
+        {
+            "fieldName": "status",
+            "fieldType": "ChapterStatus",
+            "fieldValues": "Open,Accepted,Started,Hold,Close"
+        },
+        {
+            "fieldName": "activated",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "createdDate",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "createdBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "lastUpdatedDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "lastUpdatedBy",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "initiator",
+            "otherEntityName": "iDBUser",
+            "otherEntityField": "email",
+            "otherEntityRelationshipName": "initiatedChapters"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "partner",
+            "otherEntityName": "iDBUser",
+            "otherEntityField": "email",
+            "otherEntityRelationshipName": "partnerChapters"
+        }
+    ],
+    "changelogDate": "20190210202058",
+    "entityTableName": "chapters",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

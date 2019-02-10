@@ -1,0 +1,127 @@
+{
+    "name": "UserProfile",
+    "fields": [
+        {
+            "fieldName": "screenName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "profilePic",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "any"
+        },
+        {
+            "fieldName": "gender",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "dob",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "age",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "country",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "state",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "city",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "pincode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "personality",
+            "fieldType": "Personalities",
+            "fieldValues": "Introvert,Extrovert,Thinker,Romantic,Observer,Cool,Helping"
+        },
+        {
+            "fieldName": "interests",
+            "fieldType": "Interests",
+            "fieldValues": "Travelling,Reading,Parties,Movies,Music,Sports,Fitness"
+        },
+        {
+            "fieldName": "offersings",
+            "fieldType": "Offerings",
+            "fieldValues": "BlindDate,ShortDate,Hookups,CasualRelationships,Chat,VideoChat"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "ProfileStatus",
+            "fieldValues": "Dating,Waiting,BlindDate,Offline"
+        },
+        {
+            "fieldName": "createdDate",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "createdBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "lastUpdatedDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "lastUpdatedBy",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "user",
+            "otherEntityName": "iDBUser",
+            "otherEntityField": "email",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "userProfile"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "pics",
+            "otherEntityName": "photos",
+            "otherEntityRelationshipName": "userProfile"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "profileSettings",
+            "otherEntityName": "profileSettings",
+            "otherEntityRelationshipName": "userProfile"
+        }
+    ],
+    "changelogDate": "20190210202053",
+    "entityTableName": "user_profile",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

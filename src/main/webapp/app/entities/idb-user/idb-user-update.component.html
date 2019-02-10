@@ -1,0 +1,178 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-idb-user-heading">Create or edit a IDB User</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!iDBUser.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="iDBUser.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_email">Email</label>
+                    <input type="text" class="form-control" name="email" id="field_email"
+                        [(ngModel)]="iDBUser.email" required/>
+                    <div [hidden]="!(editForm.controls.email?.dirty && editForm.controls.email?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.email?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_password">Password</label>
+                    <input type="text" class="form-control" name="password" id="field_password"
+                        [(ngModel)]="iDBUser.password" required/>
+                    <div [hidden]="!(editForm.controls.password?.dirty && editForm.controls.password?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.password?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_activated">Activated</label>
+                    <input type="checkbox" class="form-control" name="activated" id="field_activated"
+                        [(ngModel)]="iDBUser.activated" />
+                    <div [hidden]="!(editForm.controls.activated?.dirty && editForm.controls.activated?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.activated?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_accessToken">Access Token</label>
+                    <input type="text" class="form-control" name="accessToken" id="field_accessToken"
+                        [(ngModel)]="iDBUser.accessToken" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_sessionToken">Session Token</label>
+                    <input type="text" class="form-control" name="sessionToken" id="field_sessionToken"
+                        [(ngModel)]="iDBUser.sessionToken" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_lastLoginDate">Last Login Date</label>
+                    <div class="input-group">
+                        <input id="field_lastLoginDate" type="text" class="form-control" name="lastLoginDate" ngbDatepicker  #lastLoginDateDp="ngbDatepicker" [(ngModel)]="iDBUser.lastLoginDate"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="lastLoginDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_lastDeactivatedDate">Last Deactivated Date</label>
+                    <div class="input-group">
+                        <input id="field_lastDeactivatedDate" type="text" class="form-control" name="lastDeactivatedDate" ngbDatepicker  #lastDeactivatedDateDp="ngbDatepicker" [(ngModel)]="iDBUser.lastDeactivatedDate"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="lastDeactivatedDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_userRoles">User Roles</label>
+                    <select class="form-control" name="userRoles" [(ngModel)]="iDBUser.userRoles" id="field_userRoles"  required>
+                        <option value="ADMIN">ADMIN</option>
+                        <option value="USER">USER</option>
+                        <option value="SUPERADMIN">SUPERADMIN</option>
+                    </select>
+                    <div [hidden]="!(editForm.controls.userRoles?.dirty && editForm.controls.userRoles?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.userRoles?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_verified">Verified</label>
+                    <input type="checkbox" class="form-control" name="verified" id="field_verified"
+                        [(ngModel)]="iDBUser.verified" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_verificationMethod">Verification Method</label>
+                    <input type="text" class="form-control" name="verificationMethod" id="field_verificationMethod"
+                        [(ngModel)]="iDBUser.verificationMethod" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_isReportedScam">Is Reported Scam</label>
+                    <input type="checkbox" class="form-control" name="isReportedScam" id="field_isReportedScam"
+                        [(ngModel)]="iDBUser.isReportedScam" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_lastLogout">Last Logout</label>
+                    <div class="input-group">
+                        <input id="field_lastLogout" type="text" class="form-control" name="lastLogout" ngbDatepicker  #lastLogoutDp="ngbDatepicker" [(ngModel)]="iDBUser.lastLogout"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="lastLogoutDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_lastActivatedDate">Last Activated Date</label>
+                    <div class="input-group">
+                        <input id="field_lastActivatedDate" type="text" class="form-control" name="lastActivatedDate" ngbDatepicker  #lastActivatedDateDp="ngbDatepicker" [(ngModel)]="iDBUser.lastActivatedDate"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="lastActivatedDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_createdDate">Created Date</label>
+                    <div class="input-group">
+                        <input id="field_createdDate" type="text" class="form-control" name="createdDate" ngbDatepicker  #createdDateDp="ngbDatepicker" [(ngModel)]="iDBUser.createdDate"
+                        required/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="createdDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                    <div [hidden]="!(editForm.controls.createdDate?.dirty && editForm.controls.createdDate?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.createdDate?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_createdBy">Created By</label>
+                    <input type="text" class="form-control" name="createdBy" id="field_createdBy"
+                        [(ngModel)]="iDBUser.createdBy" required/>
+                    <div [hidden]="!(editForm.controls.createdBy?.dirty && editForm.controls.createdBy?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.createdBy?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_lastUpdatedDate">Last Updated Date</label>
+                    <div class="input-group">
+                        <input id="field_lastUpdatedDate" type="text" class="form-control" name="lastUpdatedDate" ngbDatepicker  #lastUpdatedDateDp="ngbDatepicker" [(ngModel)]="iDBUser.lastUpdatedDate"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="lastUpdatedDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_lastUpdatedBy">Last Updated By</label>
+                    <input type="text" class="form-control" name="lastUpdatedBy" id="field_lastUpdatedBy"
+                        [(ngModel)]="iDBUser.lastUpdatedBy" />
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

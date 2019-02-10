@@ -1,0 +1,94 @@
+<div>
+    <h2 id="page-heading">
+        <span>IDB Users</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-idb-user" [routerLink]="['/idb-user/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new IDB User
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="iDBUsers">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="email"><span>Email</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="password"><span>Password</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="activated"><span>Activated</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="accessToken"><span>Access Token</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="sessionToken"><span>Session Token</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="lastLoginDate"><span>Last Login Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="lastDeactivatedDate"><span>Last Deactivated Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="userRoles"><span>User Roles</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="verified"><span>Verified</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="verificationMethod"><span>Verification Method</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="isReportedScam"><span>Is Reported Scam</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="lastLogout"><span>Last Logout</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="lastActivatedDate"><span>Last Activated Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="createdDate"><span>Created Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="createdBy"><span>Created By</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="lastUpdatedDate"><span>Last Updated Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="lastUpdatedBy"><span>Last Updated By</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let iDBUser of iDBUsers ;trackBy: trackId">
+                <td><a [routerLink]="['/idb-user', iDBUser.id, 'view' ]">{{iDBUser.id}}</a></td>
+                <td>{{iDBUser.email}}</td>
+                <td>{{iDBUser.password}}</td>
+                <td>{{iDBUser.activated}}</td>
+                <td>{{iDBUser.accessToken}}</td>
+                <td>{{iDBUser.sessionToken}}</td>
+                <td>{{iDBUser.lastLoginDate | date:'mediumDate'}}</td>
+                <td>{{iDBUser.lastDeactivatedDate | date:'mediumDate'}}</td>
+                <td>{{iDBUser.userRoles}}</td>
+                <td>{{iDBUser.verified}}</td>
+                <td>{{iDBUser.verificationMethod}}</td>
+                <td>{{iDBUser.isReportedScam}}</td>
+                <td>{{iDBUser.lastLogout | date:'mediumDate'}}</td>
+                <td>{{iDBUser.lastActivatedDate | date:'mediumDate'}}</td>
+                <td>{{iDBUser.createdDate | date:'mediumDate'}}</td>
+                <td>{{iDBUser.createdBy}}</td>
+                <td>{{iDBUser.lastUpdatedDate | date:'mediumDate'}}</td>
+                <td>{{iDBUser.lastUpdatedBy}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/idb-user', iDBUser.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/idb-user', iDBUser.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'idb-user', { outlets: { popup: iDBUser.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="iDBUsers && iDBUsers.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

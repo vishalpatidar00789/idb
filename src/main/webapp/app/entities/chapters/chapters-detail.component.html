@@ -1,0 +1,59 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="chapters">
+            <h2><span>Chapters</span> {{chapters.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Status</span></dt>
+                <dd>
+                    <span>{{chapters.status}}</span>
+                </dd>
+                <dt><span>Activated</span></dt>
+                <dd>
+                    <span>{{chapters.activated}}</span>
+                </dd>
+                <dt><span>Created Date</span></dt>
+                <dd>
+                    <span>{{chapters.createdDate}}</span>
+                </dd>
+                <dt><span>Created By</span></dt>
+                <dd>
+                    <span>{{chapters.createdBy}}</span>
+                </dd>
+                <dt><span>Last Updated Date</span></dt>
+                <dd>
+                    <span>{{chapters.lastUpdatedDate}}</span>
+                </dd>
+                <dt><span>Last Updated By</span></dt>
+                <dd>
+                    <span>{{chapters.lastUpdatedBy}}</span>
+                </dd>
+                <dt><span>Initiator</span></dt>
+                <dd>
+                    <div *ngIf="chapters.initiatorId">
+                        <a [routerLink]="['/idb-user', chapters.initiatorId, 'view']">{{chapters.initiatorEmail}}</a>
+                    </div>
+                </dd>
+                <dt><span>Partner</span></dt>
+                <dd>
+                    <div *ngIf="chapters.partnerId">
+                        <a [routerLink]="['/idb-user', chapters.partnerId, 'view']">{{chapters.partnerEmail}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/chapters', chapters.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

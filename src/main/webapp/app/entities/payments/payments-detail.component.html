@@ -1,0 +1,75 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="payments">
+            <h2><span>Payments</span> {{payments.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Vendor</span></dt>
+                <dd>
+                    <span>{{payments.vendor}}</span>
+                </dd>
+                <dt><span>Status</span></dt>
+                <dd>
+                    <span>{{payments.status}}</span>
+                </dd>
+                <dt><span>Payment Value</span></dt>
+                <dd>
+                    <span>{{payments.paymentValue}}</span>
+                </dd>
+                <dt><span>Initiated Date</span></dt>
+                <dd>
+                    <span>{{payments.initiatedDate}}</span>
+                </dd>
+                <dt><span>Confirm Date</span></dt>
+                <dd>
+                    <span>{{payments.confirmDate}}</span>
+                </dd>
+                <dt><span>Activated</span></dt>
+                <dd>
+                    <span>{{payments.activated}}</span>
+                </dd>
+                <dt><span>Created Date</span></dt>
+                <dd>
+                    <span>{{payments.createdDate}}</span>
+                </dd>
+                <dt><span>Created By</span></dt>
+                <dd>
+                    <span>{{payments.createdBy}}</span>
+                </dd>
+                <dt><span>Last Updated Date</span></dt>
+                <dd>
+                    <span>{{payments.lastUpdatedDate}}</span>
+                </dd>
+                <dt><span>Last Updated By</span></dt>
+                <dd>
+                    <span>{{payments.lastUpdatedBy}}</span>
+                </dd>
+                <dt><span>User Account</span></dt>
+                <dd>
+                    <div *ngIf="payments.userAccountId">
+                        <a [routerLink]="['/user-account', payments.userAccountId, 'view']">{{payments.userAccountId}}</a>
+                    </div>
+                </dd>
+                <dt><span>Applied Package</span></dt>
+                <dd>
+                    <div *ngIf="payments.appliedPackageId">
+                        <a [routerLink]="['/packages', payments.appliedPackageId, 'view']">{{payments.appliedPackageId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/payments', payments.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

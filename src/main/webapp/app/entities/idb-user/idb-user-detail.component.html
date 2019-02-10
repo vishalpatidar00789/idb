@@ -1,0 +1,91 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="iDBUser">
+            <h2><span>IDB User</span> {{iDBUser.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Email</span></dt>
+                <dd>
+                    <span>{{iDBUser.email}}</span>
+                </dd>
+                <dt><span>Password</span></dt>
+                <dd>
+                    <span>{{iDBUser.password}}</span>
+                </dd>
+                <dt><span>Activated</span></dt>
+                <dd>
+                    <span>{{iDBUser.activated}}</span>
+                </dd>
+                <dt><span>Access Token</span></dt>
+                <dd>
+                    <span>{{iDBUser.accessToken}}</span>
+                </dd>
+                <dt><span>Session Token</span></dt>
+                <dd>
+                    <span>{{iDBUser.sessionToken}}</span>
+                </dd>
+                <dt><span>Last Login Date</span></dt>
+                <dd>
+                    <span>{{iDBUser.lastLoginDate}}</span>
+                </dd>
+                <dt><span>Last Deactivated Date</span></dt>
+                <dd>
+                    <span>{{iDBUser.lastDeactivatedDate}}</span>
+                </dd>
+                <dt><span>User Roles</span></dt>
+                <dd>
+                    <span>{{iDBUser.userRoles}}</span>
+                </dd>
+                <dt><span>Verified</span></dt>
+                <dd>
+                    <span>{{iDBUser.verified}}</span>
+                </dd>
+                <dt><span>Verification Method</span></dt>
+                <dd>
+                    <span>{{iDBUser.verificationMethod}}</span>
+                </dd>
+                <dt><span>Is Reported Scam</span></dt>
+                <dd>
+                    <span>{{iDBUser.isReportedScam}}</span>
+                </dd>
+                <dt><span>Last Logout</span></dt>
+                <dd>
+                    <span>{{iDBUser.lastLogout}}</span>
+                </dd>
+                <dt><span>Last Activated Date</span></dt>
+                <dd>
+                    <span>{{iDBUser.lastActivatedDate}}</span>
+                </dd>
+                <dt><span>Created Date</span></dt>
+                <dd>
+                    <span>{{iDBUser.createdDate}}</span>
+                </dd>
+                <dt><span>Created By</span></dt>
+                <dd>
+                    <span>{{iDBUser.createdBy}}</span>
+                </dd>
+                <dt><span>Last Updated Date</span></dt>
+                <dd>
+                    <span>{{iDBUser.lastUpdatedDate}}</span>
+                </dd>
+                <dt><span>Last Updated By</span></dt>
+                <dd>
+                    <span>{{iDBUser.lastUpdatedBy}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/idb-user', iDBUser.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

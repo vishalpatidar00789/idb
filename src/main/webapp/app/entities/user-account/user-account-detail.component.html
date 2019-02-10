@@ -1,0 +1,79 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="userAccount">
+            <h2><span>User Account</span> {{userAccount.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Remaining Chapters</span></dt>
+                <dd>
+                    <span>{{userAccount.remainingChapters}}</span>
+                </dd>
+                <dt><span>Curr Package Start Date</span></dt>
+                <dd>
+                    <span>{{userAccount.currPackageStartDate}}</span>
+                </dd>
+                <dt><span>Curr Package End Date</span></dt>
+                <dd>
+                    <span>{{userAccount.currPackageEndDate}}</span>
+                </dd>
+                <dt><span>User Discount</span></dt>
+                <dd>
+                    <span>{{userAccount.userDiscount}}</span>
+                </dd>
+                <dt><span>Activated</span></dt>
+                <dd>
+                    <span>{{userAccount.activated}}</span>
+                </dd>
+                <dt><span>Account Type</span></dt>
+                <dd>
+                    <span>{{userAccount.accountType}}</span>
+                </dd>
+                <dt><span>Per Day Chapter Limit</span></dt>
+                <dd>
+                    <span>{{userAccount.perDayChapterLimit}}</span>
+                </dd>
+                <dt><span>Created Date</span></dt>
+                <dd>
+                    <span>{{userAccount.createdDate}}</span>
+                </dd>
+                <dt><span>Created By</span></dt>
+                <dd>
+                    <span>{{userAccount.createdBy}}</span>
+                </dd>
+                <dt><span>Last Updated Date</span></dt>
+                <dd>
+                    <span>{{userAccount.lastUpdatedDate}}</span>
+                </dd>
+                <dt><span>Last Updated By</span></dt>
+                <dd>
+                    <span>{{userAccount.lastUpdatedBy}}</span>
+                </dd>
+                <dt><span>User</span></dt>
+                <dd>
+                    <div *ngIf="userAccount.userId">
+                        <a [routerLink]="['/idb-user', userAccount.userId, 'view']">{{userAccount.userEmail}}</a>
+                    </div>
+                </dd>
+                <dt><span>Current Package</span></dt>
+                <dd>
+                    <div *ngIf="userAccount.currentPackageId">
+                        <a [routerLink]="['/packages', userAccount.currentPackageId, 'view']">{{userAccount.currentPackageId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/user-account', userAccount.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

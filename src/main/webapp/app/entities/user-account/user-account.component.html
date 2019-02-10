@@ -1,0 +1,94 @@
+<div>
+    <h2 id="page-heading">
+        <span>User Accounts</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-user-account" [routerLink]="['/user-account/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new User Account
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="userAccounts">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="remainingChapters"><span>Remaining Chapters</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="currPackageStartDate"><span>Curr Package Start Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="currPackageEndDate"><span>Curr Package End Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="userDiscount"><span>User Discount</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="activated"><span>Activated</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="accountType"><span>Account Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="perDayChapterLimit"><span>Per Day Chapter Limit</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="createdDate"><span>Created Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="createdBy"><span>Created By</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="lastUpdatedDate"><span>Last Updated Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="lastUpdatedBy"><span>Last Updated By</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="userEmail"><span>User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="currentPackageId"><span>Current Package</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let userAccount of userAccounts ;trackBy: trackId">
+                <td><a [routerLink]="['/user-account', userAccount.id, 'view' ]">{{userAccount.id}}</a></td>
+                <td>{{userAccount.remainingChapters}}</td>
+                <td>{{userAccount.currPackageStartDate | date:'mediumDate'}}</td>
+                <td>{{userAccount.currPackageEndDate | date:'mediumDate'}}</td>
+                <td>{{userAccount.userDiscount}}</td>
+                <td>{{userAccount.activated}}</td>
+                <td>{{userAccount.accountType}}</td>
+                <td>{{userAccount.perDayChapterLimit}}</td>
+                <td>{{userAccount.createdDate | date:'mediumDate'}}</td>
+                <td>{{userAccount.createdBy}}</td>
+                <td>{{userAccount.lastUpdatedDate | date:'mediumDate'}}</td>
+                <td>{{userAccount.lastUpdatedBy}}</td>
+                <td>
+                    <div *ngIf="userAccount.userId">
+                        <a [routerLink]="['../idb-user', userAccount.userId , 'view' ]" >{{userAccount.userEmail}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="userAccount.currentPackageId">
+                        <a [routerLink]="['../packages', userAccount.currentPackageId , 'view' ]" >{{userAccount.currentPackageId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/user-account', userAccount.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/user-account', userAccount.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'user-account', { outlets: { popup: userAccount.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="userAccounts && userAccounts.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

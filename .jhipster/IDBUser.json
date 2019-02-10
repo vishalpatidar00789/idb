@@ -1,0 +1,129 @@
+{
+    "name": "IDBUser",
+    "fields": [
+        {
+            "fieldName": "email",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "password",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "activated",
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "accessToken",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "sessionToken",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "lastLoginDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "lastDeactivatedDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "userRoles",
+            "fieldType": "UserRoles",
+            "fieldValues": "ADMIN,USER,SUPERADMIN",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "verified",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "verificationMethod",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "isReportedScam",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "lastLogout",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "lastActivatedDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "createdDate",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "createdBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "lastUpdatedDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "lastUpdatedBy",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "initiatedChapters",
+            "otherEntityName": "chapters",
+            "otherEntityRelationshipName": "initiator"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "partnerChapters",
+            "otherEntityName": "chapters",
+            "otherEntityRelationshipName": "partner"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "userProfile",
+            "otherEntityName": "userProfile",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "user"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "userAccount",
+            "otherEntityName": "userAccount",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "user"
+        }
+    ],
+    "changelogDate": "20190210202052",
+    "entityTableName": "idb_user",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

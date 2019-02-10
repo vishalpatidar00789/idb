@@ -1,0 +1,89 @@
+{
+    "name": "Payments",
+    "fields": [
+        {
+            "fieldName": "vendor",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "PaymentStatus",
+            "fieldValues": "Paid,Failed,Hold",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "paymentValue",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "initiatedDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "confirmDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "activated",
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "createdDate",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "createdBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "lastUpdatedDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "lastUpdatedBy",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "userAccount",
+            "otherEntityName": "userAccount",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "payments"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "appliedPackage",
+            "otherEntityName": "packages",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "packages"
+        }
+    ],
+    "changelogDate": "20190210202059",
+    "entityTableName": "payments",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

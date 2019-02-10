@@ -38,6 +38,20 @@ public class CacheConfiguration {
             cm.createCache(com.apps.idb.domain.User.class.getName(), jcacheConfiguration);
             cm.createCache(com.apps.idb.domain.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(com.apps.idb.domain.User.class.getName() + ".authorities", jcacheConfiguration);
+            cm.createCache(com.apps.idb.domain.IDBUser.class.getName(), jcacheConfiguration);
+            cm.createCache(com.apps.idb.domain.IDBUser.class.getName() + ".initiatedChapters", jcacheConfiguration);
+            cm.createCache(com.apps.idb.domain.IDBUser.class.getName() + ".partnerChapters", jcacheConfiguration);
+            cm.createCache(com.apps.idb.domain.UserProfile.class.getName(), jcacheConfiguration);
+            cm.createCache(com.apps.idb.domain.UserProfile.class.getName() + ".pics", jcacheConfiguration);
+            cm.createCache(com.apps.idb.domain.UserProfile.class.getName() + ".profileSettings", jcacheConfiguration);
+            cm.createCache(com.apps.idb.domain.ProfileSettings.class.getName(), jcacheConfiguration);
+            cm.createCache(com.apps.idb.domain.Photos.class.getName(), jcacheConfiguration);
+            cm.createCache(com.apps.idb.domain.UserAccount.class.getName(), jcacheConfiguration);
+            cm.createCache(com.apps.idb.domain.UserAccount.class.getName() + ".payments", jcacheConfiguration);
+            cm.createCache(com.apps.idb.domain.Packages.class.getName(), jcacheConfiguration);
+            cm.createCache(com.apps.idb.domain.Packages.class.getName() + ".payments", jcacheConfiguration);
+            cm.createCache(com.apps.idb.domain.Chapters.class.getName(), jcacheConfiguration);
+            cm.createCache(com.apps.idb.domain.Payments.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

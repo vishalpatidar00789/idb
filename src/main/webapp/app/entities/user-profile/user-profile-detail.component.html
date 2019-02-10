@@ -1,0 +1,100 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="userProfile">
+            <h2><span>User Profile</span> {{userProfile.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Screen Name</span></dt>
+                <dd>
+                    <span>{{userProfile.screenName}}</span>
+                </dd>
+                <dt><span>Profile Pic</span></dt>
+                <dd>
+                    <div *ngIf="userProfile.profilePic">
+                        <a (click)="openFile(userProfile.profilePicContentType, userProfile.profilePic)">open</a>
+                        {{userProfile.profilePicContentType}}, {{byteSize(userProfile.profilePic)}}
+                    </div>
+                </dd>
+                <dt><span>Gender</span></dt>
+                <dd>
+                    <span>{{userProfile.gender}}</span>
+                </dd>
+                <dt><span>Dob</span></dt>
+                <dd>
+                    <span>{{userProfile.dob}}</span>
+                </dd>
+                <dt><span>Age</span></dt>
+                <dd>
+                    <span>{{userProfile.age}}</span>
+                </dd>
+                <dt><span>Country</span></dt>
+                <dd>
+                    <span>{{userProfile.country}}</span>
+                </dd>
+                <dt><span>State</span></dt>
+                <dd>
+                    <span>{{userProfile.state}}</span>
+                </dd>
+                <dt><span>City</span></dt>
+                <dd>
+                    <span>{{userProfile.city}}</span>
+                </dd>
+                <dt><span>Pincode</span></dt>
+                <dd>
+                    <span>{{userProfile.pincode}}</span>
+                </dd>
+                <dt><span>Personality</span></dt>
+                <dd>
+                    <span>{{userProfile.personality}}</span>
+                </dd>
+                <dt><span>Interests</span></dt>
+                <dd>
+                    <span>{{userProfile.interests}}</span>
+                </dd>
+                <dt><span>Offersings</span></dt>
+                <dd>
+                    <span>{{userProfile.offersings}}</span>
+                </dd>
+                <dt><span>Status</span></dt>
+                <dd>
+                    <span>{{userProfile.status}}</span>
+                </dd>
+                <dt><span>Created Date</span></dt>
+                <dd>
+                    <span>{{userProfile.createdDate}}</span>
+                </dd>
+                <dt><span>Created By</span></dt>
+                <dd>
+                    <span>{{userProfile.createdBy}}</span>
+                </dd>
+                <dt><span>Last Updated Date</span></dt>
+                <dd>
+                    <span>{{userProfile.lastUpdatedDate}}</span>
+                </dd>
+                <dt><span>Last Updated By</span></dt>
+                <dd>
+                    <span>{{userProfile.lastUpdatedBy}}</span>
+                </dd>
+                <dt><span>User</span></dt>
+                <dd>
+                    <div *ngIf="userProfile.userId">
+                        <a [routerLink]="['/idb-user', userProfile.userId, 'view']">{{userProfile.userEmail}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/user-profile', userProfile.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
