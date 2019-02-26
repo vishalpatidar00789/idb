@@ -20,6 +20,7 @@ import { IdbEntityModule } from './entities/entity.module';
 import * as moment from 'moment';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ErrorComponent } from './layouts';
+import { MatchesModule } from './matches/matches.module';
 
 @NgModule({
     imports: [
@@ -36,7 +37,8 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
         IdbAccountModule,
         // jhipster-needle-angular-add-module JHipster will add new module here
         IdbEntityModule,
-        IdbAppRoutingModule
+        IdbAppRoutingModule,
+        MatchesModule
     ],
     declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, FooterComponent],
     providers: [

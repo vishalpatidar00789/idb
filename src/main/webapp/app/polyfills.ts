@@ -68,3 +68,6 @@ import 'zone.js/dist/zone'; // Included with Angular CLI.
 // import 'intl/locale-data/jsonp/en';
 
 require('../manifest.webapp');
+
+
+import 'hammerjs';

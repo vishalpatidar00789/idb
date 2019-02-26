@@ -1,5 +1,5 @@
 <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()" class="form-horizontal">
-    <div class="panel panel-primary">
+    <div class="panel panel-primary container">
       <div class="panel-heading">
         <h3 class="panel-title">Welcome To IDB</h3>
       </div>
@@ -97,3 +97,29 @@
     </div>
   </div>
   </form>
+
+  <div class="container">
+      <div class="panel-body">
+        <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+      </div>
+
+      <div class="card" style="width: 650px;">
+          <!-- <div class="card-header bg-transparent"><button class="btn btn-primary" type="submit">Profile</button> </div> -->
+          <div class="card-body">
+              <button class="btn btn-primary" type="submit">Profile</button>
+              <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+              <button class="btn btn-primary" type="submit">Request</button>
+          </div>
+          <!-- <div class="card-footer bg-transparent"> <button class="btn btn-primary" type="submit">Request</button></div> -->
+        </div>
+
+        <div class="card" style="width:500px">
+            <div class="card-img" ><ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery></div>
+            <div class="card-img-overlay">
+              <h4 class="card-title">John Doe</h4>
+              <p class="card-text">Some example text.</p>
+              <a href="#" class="btn btn-primary">See Profile</a>
+            </div>
+          </div>
+  </div>
+  

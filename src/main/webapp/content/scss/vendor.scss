@@ -11,3 +11,7 @@ eg $input-color: red;
 
 /* jhipster-needle-scss-add-vendor JHipster will add new css style */
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+
+//Importing font awesome css for carousel icons like arrows, cross etc.
+@import '~font-awesome/css/font-awesome.css';
