@@ -1,9 +1,19 @@
 package com.apps.idb.service.dto;
 import java.time.LocalDate;
+
+import javax.persistence.Column;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import com.apps.idb.domain.Authority;
+import com.apps.idb.domain.IDBUser;
+import com.apps.idb.domain.UserAccount;
+import com.apps.idb.domain.UserProfile;
 import com.apps.idb.domain.enumeration.UserRoles;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * A DTO for the IDBUser entity.
@@ -52,6 +62,59 @@ public class IDBUserDTO implements Serializable {
 
     private String lastUpdatedBy;
 
+    @Size(max = 256)
+    private String imageUrl;
+
+    @Size(min = 2, max = 6)
+    private String langKey;
+    
+    private Set<String> authorities;
+    
+    private String activationKey;
+
+    private String resetKey;
+
+    private LocalDate resetDate = null;
+    
+    private UserAccount userAccount=null;
+    
+    private UserProfile userProfile = null;
+    
+    
+    public IDBUserDTO() {
+        // Empty constructor needed for Jackson.
+    }
+    
+
+	public IDBUserDTO(IDBUser user) {
+		this.email = user.getEmail();
+		this.password = user.getPassword();
+		this.activated = user.getActivated();
+		this.accessToken = user.getAccessToken();
+		this.sessionToken = user.getSessionToken();
+		this.lastLoginDate = user.getLastLoginDate();
+		this.lastDeactivatedDate = user.getLastDeactivatedDate();
+		this.userRoles = user.getUserRoles();
+		this.verified = user.isVerified();
+		this.verificationMethod = user.getVerificationMethod();
+		this.isReportedScam = user.getIsReportedScam();
+		this.lastLogout = user.getLastLogout();
+		this.lastActivatedDate = user.getLastActivatedDate();
+		this.createdDate = user.getCreatedDate();
+		this.createdBy = user.getCreatedBy();
+		this.lastUpdatedDate = user.getLastUpdatedDate();
+		this.lastUpdatedBy = user.getLastUpdatedBy();
+		this.imageUrl = user.getImageUrl();
+		this.langKey = user.getLangKey();
+		this.activationKey = user.getActivationKey();
+		this.resetKey = user.getResetKey();
+		this.resetDate = user.getResetDate();
+		this.userAccount = user.getUserAccount();
+		this.userProfile = user.getUserProfile();
+		this.authorities = user.getAuthorities().stream()
+            .map(Authority::getName)
+            .collect(Collectors.toSet());
+    }
 
     public Long getId() {
         return id;
@@ -196,8 +259,98 @@ public class IDBUserDTO implements Serializable {
     public void setLastUpdatedBy(String lastUpdatedBy) {
         this.lastUpdatedBy = lastUpdatedBy;
     }
+    
+    
+    
+    public String getImageUrl() {
+		return imageUrl;
+	}
 
-    @Override
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+	public String getLangKey() {
+		return langKey;
+	}
+
+	public void setLangKey(String langKey) {
+		this.langKey = langKey;
+	}
+
+	public Set<String> getAuthorities() {
+		return authorities;
+	}
+
+	public void setAuthorities(Set<String> authorities) {
+		this.authorities = authorities;
+	}
+
+	public Boolean getActivated() {
+		return activated;
+	}
+
+	public Boolean getVerified() {
+		return verified;
+	}
+
+	public Boolean getIsReportedScam() {
+		return isReportedScam;
+	}
+	
+	
+
+	public String getActivationKey() {
+		return activationKey;
+	}
+
+
+	public void setActivationKey(String activationKey) {
+		this.activationKey = activationKey;
+	}
+
+
+	public String getResetKey() {
+		return resetKey;
+	}
+
+
+	public void setResetKey(String resetKey) {
+		this.resetKey = resetKey;
+	}
+
+
+	public LocalDate getResetDate() {
+		return resetDate;
+	}
+
+
+	public void setResetDate(LocalDate resetDate) {
+		this.resetDate = resetDate;
+	}
+
+
+	public UserAccount getUserAccount() {
+		return userAccount;
+	}
+
+
+	public void setUserAccount(UserAccount userAccount) {
+		this.userAccount = userAccount;
+	}
+
+
+	public UserProfile getUserProfile() {
+		return userProfile;
+	}
+
+
+	public void setUserProfile(UserProfile userProfile) {
+		this.userProfile = userProfile;
+	}
+
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -218,27 +371,17 @@ public class IDBUserDTO implements Serializable {
         return Objects.hashCode(getId());
     }
 
-    @Override
-    public String toString() {
-        return "IDBUserDTO{" +
-            "id=" + getId() +
-            ", email='" + getEmail() + "'" +
-            ", password='" + getPassword() + "'" +
-            ", activated='" + isActivated() + "'" +
-            ", accessToken='" + getAccessToken() + "'" +
-            ", sessionToken='" + getSessionToken() + "'" +
-            ", lastLoginDate='" + getLastLoginDate() + "'" +
-            ", lastDeactivatedDate='" + getLastDeactivatedDate() + "'" +
-            ", userRoles='" + getUserRoles() + "'" +
-            ", verified='" + isVerified() + "'" +
-            ", verificationMethod='" + getVerificationMethod() + "'" +
-            ", isReportedScam='" + isIsReportedScam() + "'" +
-            ", lastLogout='" + getLastLogout() + "'" +
-            ", lastActivatedDate='" + getLastActivatedDate() + "'" +
-            ", createdDate='" + getCreatedDate() + "'" +
-            ", createdBy='" + getCreatedBy() + "'" +
-            ", lastUpdatedDate='" + getLastUpdatedDate() + "'" +
-            ", lastUpdatedBy='" + getLastUpdatedBy() + "'" +
-            "}";
-    }
+	@Override
+	public String toString() {
+		return "IDBUserDTO [id=" + id + ", email=" + email + ", password=" + password + ", activated=" + activated
+				+ ", accessToken=" + accessToken + ", sessionToken=" + sessionToken + ", lastLoginDate=" + lastLoginDate
+				+ ", lastDeactivatedDate=" + lastDeactivatedDate + ", userRoles=" + userRoles + ", verified=" + verified
+				+ ", verificationMethod=" + verificationMethod + ", isReportedScam=" + isReportedScam + ", lastLogout="
+				+ lastLogout + ", lastActivatedDate=" + lastActivatedDate + ", createdDate=" + createdDate
+				+ ", createdBy=" + createdBy + ", lastUpdatedDate=" + lastUpdatedDate + ", lastUpdatedBy="
+				+ lastUpdatedBy + ", imageUrl=" + imageUrl + ", langKey=" + langKey + ", authorities=" + authorities
+				+ "]";
+	}
+
+   
 }

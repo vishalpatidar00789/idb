@@ -1,9 +1,13 @@
 package com.apps.idb.service.mapper;
 
 
-import com.apps.idb.IdbApp;
-import com.apps.idb.domain.User;
-import com.apps.idb.service.dto.UserDTO;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,12 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import com.apps.idb.IdbApp;
+import com.apps.idb.domain.IDBUser;
+import com.apps.idb.service.dto.IDBUserDTO;
 
 /**
  * Test class for the UserMapper.
@@ -33,33 +34,30 @@ public class UserMapperTest {
     @Autowired
     private UserMapper userMapper;
 
-    private User user;
-    private UserDTO userDto;
+    private IDBUser user;
+    private IDBUserDTO userDto;
 
     private static final Long DEFAULT_ID = 1L;
 
     @Before
     public void init() {
-        user = new User();
-        user.setLogin(DEFAULT_LOGIN);
+        user = new IDBUser();
         user.setPassword(RandomStringUtils.random(60));
         user.setActivated(true);
         user.setEmail("johndoe@localhost");
-        user.setFirstName("john");
-        user.setLastName("doe");
         user.setImageUrl("image_url");
         user.setLangKey("en");
 
-        userDto = new UserDTO(user);
+        userDto = new IDBUserDTO(user);
     }
 
     @Test
     public void usersToUserDTOsShouldMapOnlyNonNullUsers(){
-        List<User> users = new ArrayList<>();
+        List<IDBUser> users = new ArrayList<>();
         users.add(user);
         users.add(null);
 
-        List<UserDTO> userDTOS = userMapper.usersToUserDTOs(users);
+        List<IDBUserDTO> userDTOS = userMapper.usersToUserDTOs(users);
 
         assertThat(userDTOS).isNotEmpty();
         assertThat(userDTOS).size().isEqualTo(1);
@@ -67,11 +65,11 @@ public class UserMapperTest {
 
     @Test
     public void userDTOsToUsersShouldMapOnlyNonNullUsers(){
-        List<UserDTO> usersDto = new ArrayList<>();
+        List<IDBUserDTO> usersDto = new ArrayList<>();
         usersDto.add(userDto);
         usersDto.add(null);
 
-        List<User> users = userMapper.userDTOsToUsers(usersDto);
+        List<IDBUser> users = userMapper.userDTOsToUsers(usersDto);
 
         assertThat(users).isNotEmpty();
         assertThat(users).size().isEqualTo(1);
@@ -83,10 +81,10 @@ public class UserMapperTest {
         authoritiesAsString.add("ADMIN");
         userDto.setAuthorities(authoritiesAsString);
 
-        List<UserDTO> usersDto = new ArrayList<>();
+        List<IDBUserDTO> usersDto = new ArrayList<>();
         usersDto.add(userDto);
 
-        List<User> users = userMapper.userDTOsToUsers(usersDto);
+        List<IDBUser> users = userMapper.userDTOsToUsers(usersDto);
 
         assertThat(users).isNotEmpty();
         assertThat(users).size().isEqualTo(1);
@@ -99,10 +97,10 @@ public class UserMapperTest {
     public void userDTOsToUsersMapWithNullAuthoritiesStringShouldReturnUserWithEmptyAuthorities(){
         userDto.setAuthorities(null);
 
-        List<UserDTO> usersDto = new ArrayList<>();
+        List<IDBUserDTO> usersDto = new ArrayList<>();
         usersDto.add(userDto);
 
-        List<User> users = userMapper.userDTOsToUsers(usersDto);
+        List<IDBUser> users = userMapper.userDTOsToUsers(usersDto);
 
         assertThat(users).isNotEmpty();
         assertThat(users).size().isEqualTo(1);
@@ -118,7 +116,7 @@ public class UserMapperTest {
 
         userDto.setAuthorities(authoritiesAsString);
 
-        User user = userMapper.userDTOToUser(userDto);
+        IDBUser user = userMapper.userDTOToUser(userDto);
 
         assertThat(user).isNotNull();
         assertThat(user.getAuthorities()).isNotNull();
@@ -130,7 +128,7 @@ public class UserMapperTest {
     public void userDTOToUserMapWithNullAuthoritiesStringShouldReturnUserWithEmptyAuthorities(){
         userDto.setAuthorities(null);
 
-        User user = userMapper.userDTOToUser(userDto);
+        IDBUser user = userMapper.userDTOToUser(userDto);
 
         assertThat(user).isNotNull();
         assertThat(user.getAuthorities()).isNotNull();

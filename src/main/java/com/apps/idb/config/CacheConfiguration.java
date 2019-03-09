@@ -33,12 +33,12 @@ public class CacheConfiguration {
     @Bean
     public JCacheManagerCustomizer cacheManagerCustomizer() {
         return cm -> {
-            cm.createCache(com.apps.idb.repository.UserRepository.USERS_BY_LOGIN_CACHE, jcacheConfiguration);
-            cm.createCache(com.apps.idb.repository.UserRepository.USERS_BY_EMAIL_CACHE, jcacheConfiguration);
-            cm.createCache(com.apps.idb.domain.User.class.getName(), jcacheConfiguration);
-            cm.createCache(com.apps.idb.domain.Authority.class.getName(), jcacheConfiguration);
-            cm.createCache(com.apps.idb.domain.User.class.getName() + ".authorities", jcacheConfiguration);
+            //cm.createCache(com.apps.idb.repository.IDBUserRepository.USERS_BY_LOGIN_CACHE, jcacheConfiguration);
+            cm.createCache(com.apps.idb.repository.IDBUserRepository.USERS_BY_EMAIL_CACHE, jcacheConfiguration);
             cm.createCache(com.apps.idb.domain.IDBUser.class.getName(), jcacheConfiguration);
+            cm.createCache(com.apps.idb.domain.Authority.class.getName(), jcacheConfiguration);
+            cm.createCache(com.apps.idb.domain.IDBUser.class.getName() + ".authorities", jcacheConfiguration);
+           // cm.createCache(com.apps.idb.domain.IDBUser.class.getName(), jcacheConfiguration);
             cm.createCache(com.apps.idb.domain.IDBUser.class.getName() + ".initiatedChapters", jcacheConfiguration);
             cm.createCache(com.apps.idb.domain.IDBUser.class.getName() + ".partnerChapters", jcacheConfiguration);
             cm.createCache(com.apps.idb.domain.UserProfile.class.getName(), jcacheConfiguration);

@@ -2,6 +2,8 @@ package com.apps.idb.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -9,6 +11,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -31,11 +34,11 @@ public class IDBUser implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false, unique=true)
     private String email;
 
     @NotNull
-    @Column(name = "jhi_password", nullable = false)
+    @Column(name = "password_hash", nullable = false)
     private String password;
 
     @NotNull
@@ -87,6 +90,26 @@ public class IDBUser implements Serializable {
 
     @Column(name = "last_updated_by")
     private String lastUpdatedBy;
+    
+    @Size(min = 2, max = 6)
+    @Column(name = "lang_key", length = 6)
+    private String langKey;
+
+    @Size(max = 256)
+    @Column(name = "image_url", length = 256)
+    private String imageUrl;
+
+    @Size(max = 20)
+    @Column(name = "activation_key", length = 20)
+    private String activationKey;
+
+    @Size(max = 20)
+    @Column(name = "reset_key", length = 20)
+    private String resetKey;
+
+    @Column(name = "reset_date")
+    private LocalDate resetDate = null;
+
 
     @OneToMany(mappedBy = "initiator")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -94,13 +117,24 @@ public class IDBUser implements Serializable {
     @OneToMany(mappedBy = "partner")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Chapters> partnerChapters = new HashSet<>();
-    @OneToOne(mappedBy = "user")
+    @OneToOne(fetch = FetchType.LAZY,mappedBy = "user")
     @JsonIgnore
     private UserProfile userProfile;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(fetch = FetchType.LAZY,mappedBy = "user")
     @JsonIgnore
     private UserAccount userAccount;
+    
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(
+        name = "jhi_user_authority",
+        joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+        inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")})
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @BatchSize(size = 20)
+    private Set<Authority> authorities = new HashSet<>();
+
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -407,9 +441,71 @@ public class IDBUser implements Serializable {
     public void setUserAccount(UserAccount userAccount) {
         this.userAccount = userAccount;
     }
+    
+    
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
-    @Override
+    public String getLangKey() {
+		return langKey;
+	}
+
+	public void setLangKey(String langKey) {
+		this.langKey = langKey;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+	public String getActivationKey() {
+		return activationKey;
+	}
+
+	public void setActivationKey(String activationKey) {
+		this.activationKey = activationKey;
+	}
+
+	public String getResetKey() {
+		return resetKey;
+	}
+
+	public void setResetKey(String resetKey) {
+		this.resetKey = resetKey;
+	}
+
+	public LocalDate getResetDate() {
+		return resetDate;
+	}
+
+	public void setResetDate(LocalDate resetDate) {
+		this.resetDate = resetDate;
+	}
+
+	public Set<Authority> getAuthorities() {
+		return authorities;
+	}
+
+	public void setAuthorities(Set<Authority> authorities) {
+		this.authorities = authorities;
+	}
+
+	public Boolean getActivated() {
+		return activated;
+	}
+
+	public Boolean getVerified() {
+		return verified;
+	}
+
+	public Boolean getIsReportedScam() {
+		return isReportedScam;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

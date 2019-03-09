@@ -1,12 +1,13 @@
 package com.apps.idb.web.rest.vm;
 
-import com.apps.idb.service.dto.UserDTO;
 import javax.validation.constraints.Size;
+
+import com.apps.idb.service.dto.IDBUserDTO;
 
 /**
  * View Model extending the UserDTO, which is meant to be used in the user management UI.
  */
-public class ManagedUserVM extends UserDTO {
+public class ManagedUserVM extends IDBUserDTO {
 
     public static final int PASSWORD_MIN_LENGTH = 4;
 

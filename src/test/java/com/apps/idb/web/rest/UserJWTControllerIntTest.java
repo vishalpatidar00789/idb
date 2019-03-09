@@ -1,11 +1,13 @@
 package com.apps.idb.web.rest;
 
-import com.apps.idb.IdbApp;
-import com.apps.idb.domain.User;
-import com.apps.idb.repository.UserRepository;
-import com.apps.idb.security.jwt.TokenProvider;
-import com.apps.idb.web.rest.errors.ExceptionTranslator;
-import com.apps.idb.web.rest.vm.LoginVM;
+import static org.hamcrest.Matchers.isEmptyString;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.nullValue;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,13 +20,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
-import static org.hamcrest.Matchers.nullValue;
-import static org.hamcrest.Matchers.isEmptyString;
-import static org.hamcrest.Matchers.not;
+import com.apps.idb.IdbApp;
+import com.apps.idb.domain.IDBUser;
+import com.apps.idb.repository.IDBUserRepository;
+import com.apps.idb.security.jwt.TokenProvider;
+import com.apps.idb.web.rest.errors.ExceptionTranslator;
+import com.apps.idb.web.rest.vm.LoginVM;
 
 /**
  * Test class for the UserJWTController REST controller.
@@ -42,7 +43,7 @@ public class UserJWTControllerIntTest {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private UserRepository userRepository;
+    private IDBUserRepository userRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -63,8 +64,7 @@ public class UserJWTControllerIntTest {
     @Test
     @Transactional
     public void testAuthorize() throws Exception {
-        User user = new User();
-        user.setLogin("user-jwt-controller");
+        IDBUser user = new IDBUser();
         user.setEmail("user-jwt-controller@example.com");
         user.setActivated(true);
         user.setPassword(passwordEncoder.encode("test"));
@@ -87,8 +87,7 @@ public class UserJWTControllerIntTest {
     @Test
     @Transactional
     public void testAuthorizeWithRememberMe() throws Exception {
-        User user = new User();
-        user.setLogin("user-jwt-controller-remember-me");
+        IDBUser user = new IDBUser();
         user.setEmail("user-jwt-controller-remember-me@example.com");
         user.setActivated(true);
         user.setPassword(passwordEncoder.encode("test"));

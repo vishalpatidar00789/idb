@@ -1,13 +1,16 @@
 package com.apps.idb.service.mapper;
 
-import com.apps.idb.domain.Authority;
-import com.apps.idb.domain.User;
-import com.apps.idb.service.dto.UserDTO;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import com.apps.idb.domain.Authority;
+import com.apps.idb.domain.IDBUser;
+import com.apps.idb.service.dto.IDBUserDTO;
 
 /**
  * Mapper for the entity User and its DTO called UserDTO.
@@ -18,33 +21,30 @@ import java.util.stream.Collectors;
 @Service
 public class UserMapper {
 
-    public List<UserDTO> usersToUserDTOs(List<User> users) {
+    public List<IDBUserDTO> usersToUserDTOs(List<IDBUser> users) {
         return users.stream()
             .filter(Objects::nonNull)
             .map(this::userToUserDTO)
             .collect(Collectors.toList());
     }
 
-    public UserDTO userToUserDTO(User user) {
-        return new UserDTO(user);
+    public IDBUserDTO userToUserDTO(IDBUser user) {
+        return new IDBUserDTO(user);
     }
 
-    public List<User> userDTOsToUsers(List<UserDTO> userDTOs) {
+    public List<IDBUser> userDTOsToUsers(List<IDBUserDTO> userDTOs) {
         return userDTOs.stream()
             .filter(Objects::nonNull)
             .map(this::userDTOToUser)
             .collect(Collectors.toList());
     }
 
-    public User userDTOToUser(UserDTO userDTO) {
+    public IDBUser userDTOToUser(IDBUserDTO userDTO) {
         if (userDTO == null) {
             return null;
         } else {
-            User user = new User();
+        	IDBUser user = new IDBUser();
             user.setId(userDTO.getId());
-            user.setLogin(userDTO.getLogin());
-            user.setFirstName(userDTO.getFirstName());
-            user.setLastName(userDTO.getLastName());
             user.setEmail(userDTO.getEmail());
             user.setImageUrl(userDTO.getImageUrl());
             user.setActivated(userDTO.isActivated());
@@ -70,11 +70,11 @@ public class UserMapper {
         return authorities;
     }
 
-    public User userFromId(Long id) {
+    public IDBUser userFromId(Long id) {
         if (id == null) {
             return null;
         }
-        User user = new User();
+        IDBUser user = new IDBUser();
         user.setId(id);
         return user;
     }

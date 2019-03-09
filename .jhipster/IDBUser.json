@@ -87,6 +87,26 @@
         {
             "fieldName": "lastUpdatedBy",
             "fieldType": "String"
+        },
+		{
+            "fieldName": "langKey",
+            "fieldType": "String"
+        },
+		{
+            "fieldName": "imageUrl",
+            "fieldType": "String"
+        },
+		{
+            "fieldName": "activationKey",
+            "fieldType": "String"
+        },
+		{
+            "fieldName": "resetKey",
+            "fieldType": "String"
+        },
+		{
+            "fieldName": "resetDate",
+            "fieldType": "LocalDate"
         }
     ],
     "relationships": [

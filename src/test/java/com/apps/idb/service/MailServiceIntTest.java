@@ -1,9 +1,17 @@
 package com.apps.idb.service;
-import com.apps.idb.config.Constants;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.verify;
 
-import com.apps.idb.IdbApp;
-import com.apps.idb.domain.User;
-import io.github.jhipster.config.JHipsterProperties;
+import java.io.ByteArrayOutputStream;
+
+import javax.mail.Multipart;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,15 +27,11 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
-import javax.mail.Multipart;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
-import java.io.ByteArrayOutputStream;
+import com.apps.idb.IdbApp;
+import com.apps.idb.config.Constants;
+import com.apps.idb.domain.IDBUser;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import io.github.jhipster.config.JHipsterProperties;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = IdbApp.class)
@@ -119,8 +123,7 @@ public class MailServiceIntTest {
 
     @Test
     public void testSendEmailFromTemplate() throws Exception {
-        User user = new User();
-        user.setLogin("john");
+    	IDBUser user = new IDBUser();
         user.setEmail("john.doe@example.com");
         user.setLangKey("en");
         mailService.sendEmailFromTemplate(user, "mail/testEmail", "email.test.title");
@@ -135,9 +138,8 @@ public class MailServiceIntTest {
 
     @Test
     public void testSendActivationEmail() throws Exception {
-        User user = new User();
+    	IDBUser user = new IDBUser();
         user.setLangKey(Constants.DEFAULT_LANGUAGE);
-        user.setLogin("john");
         user.setEmail("john.doe@example.com");
         mailService.sendActivationEmail(user);
         verify(javaMailSender).send(messageCaptor.capture());
@@ -150,9 +152,8 @@ public class MailServiceIntTest {
 
     @Test
     public void testCreationEmail() throws Exception {
-        User user = new User();
+    	IDBUser user = new IDBUser();
         user.setLangKey(Constants.DEFAULT_LANGUAGE);
-        user.setLogin("john");
         user.setEmail("john.doe@example.com");
         mailService.sendCreationEmail(user);
         verify(javaMailSender).send(messageCaptor.capture());
@@ -165,9 +166,8 @@ public class MailServiceIntTest {
 
     @Test
     public void testSendPasswordResetMail() throws Exception {
-        User user = new User();
+    	IDBUser user = new IDBUser();
         user.setLangKey(Constants.DEFAULT_LANGUAGE);
-        user.setLogin("john");
         user.setEmail("john.doe@example.com");
         mailService.sendPasswordResetMail(user);
         verify(javaMailSender).send(messageCaptor.capture());

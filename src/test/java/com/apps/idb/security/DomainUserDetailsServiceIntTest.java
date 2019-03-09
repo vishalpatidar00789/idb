@@ -1,8 +1,8 @@
 package com.apps.idb.security;
 
 import com.apps.idb.IdbApp;
-import com.apps.idb.domain.User;
-import com.apps.idb.repository.UserRepository;
+import com.apps.idb.domain.IDBUser;
+import com.apps.idb.repository.IDBUserRepository;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Before;
@@ -38,44 +38,35 @@ public class DomainUserDetailsServiceIntTest {
     private static final String USER_THREE_EMAIL = "test-user-three@localhost";
 
     @Autowired
-    private UserRepository userRepository;
+    private IDBUserRepository userRepository;
 
     @Autowired
     private UserDetailsService domainUserDetailsService;
 
-    private User userOne;
-    private User userTwo;
-    private User userThree;
+    private IDBUser userOne;
+    private IDBUser userTwo;
+    private IDBUser userThree;
 
     @Before
     public void init() {
-        userOne = new User();
-        userOne.setLogin(USER_ONE_LOGIN);
+        userOne = new IDBUser();
         userOne.setPassword(RandomStringUtils.random(60));
         userOne.setActivated(true);
         userOne.setEmail(USER_ONE_EMAIL);
-        userOne.setFirstName("userOne");
-        userOne.setLastName("doe");
         userOne.setLangKey("en");
         userRepository.save(userOne);
 
-        userTwo = new User();
-        userTwo.setLogin(USER_TWO_LOGIN);
+        userTwo = new IDBUser();
         userTwo.setPassword(RandomStringUtils.random(60));
         userTwo.setActivated(true);
         userTwo.setEmail(USER_TWO_EMAIL);
-        userTwo.setFirstName("userTwo");
-        userTwo.setLastName("doe");
         userTwo.setLangKey("en");
         userRepository.save(userTwo);
 
-        userThree = new User();
-        userThree.setLogin(USER_THREE_LOGIN);
+        userThree = new IDBUser();
         userThree.setPassword(RandomStringUtils.random(60));
         userThree.setActivated(false);
         userThree.setEmail(USER_THREE_EMAIL);
-        userThree.setFirstName("userThree");
-        userThree.setLastName("doe");
         userThree.setLangKey("en");
         userRepository.save(userThree);
     }

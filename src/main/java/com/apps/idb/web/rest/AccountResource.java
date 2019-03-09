@@ -1,13 +1,13 @@
 package com.apps.idb.web.rest;
 
 
-import com.apps.idb.domain.User;
-import com.apps.idb.repository.UserRepository;
+import com.apps.idb.domain.IDBUser;
+import com.apps.idb.repository.IDBUserRepository;
 import com.apps.idb.security.SecurityUtils;
+import com.apps.idb.service.IDBUserService;
 import com.apps.idb.service.MailService;
-import com.apps.idb.service.UserService;
+import com.apps.idb.service.dto.IDBUserDTO;
 import com.apps.idb.service.dto.PasswordChangeDTO;
-import com.apps.idb.service.dto.UserDTO;
 import com.apps.idb.web.rest.errors.*;
 import com.apps.idb.web.rest.vm.KeyAndPasswordVM;
 import com.apps.idb.web.rest.vm.ManagedUserVM;
@@ -31,13 +31,13 @@ public class AccountResource {
 
     private final Logger log = LoggerFactory.getLogger(AccountResource.class);
 
-    private final UserRepository userRepository;
+    private final IDBUserRepository userRepository;
 
-    private final UserService userService;
+    private final IDBUserService userService;
 
     private final MailService mailService;
 
-    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService) {
+    public AccountResource(IDBUserRepository userRepository, IDBUserService userService, MailService mailService) {
 
         this.userRepository = userRepository;
         this.userService = userService;
@@ -54,12 +54,12 @@ public class AccountResource {
      */
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public void registerAccount(@Valid @RequestBody ManagedUserVM managedUserVM) {
+    public void registerAccount( @RequestBody ManagedUserVM managedUserVM) {
         if (!checkPasswordLength(managedUserVM.getPassword())) {
             throw new InvalidPasswordException();
         }
-        User user = userService.registerUser(managedUserVM, managedUserVM.getPassword());
-        mailService.sendActivationEmail(user);
+        IDBUser user = userService.registerUser(managedUserVM, managedUserVM.getPassword());
+       // mailService.sendActivationEmail(user);
     }
 
     /**
@@ -70,7 +70,7 @@ public class AccountResource {
      */
     @GetMapping("/activate")
     public void activateAccount(@RequestParam(value = "key") String key) {
-        Optional<User> user = userService.activateRegistration(key);
+        Optional<IDBUser> user = userService.activateRegistration(key);
         if (!user.isPresent()) {
             throw new InternalServerErrorException("No user was found for this activation key");
         }
@@ -95,9 +95,9 @@ public class AccountResource {
      * @throws RuntimeException 500 (Internal Server Error) if the user couldn't be returned
      */
     @GetMapping("/account")
-    public UserDTO getAccount() {
+    public IDBUserDTO getAccount() {
         return userService.getUserWithAuthorities()
-            .map(UserDTO::new)
+            .map(IDBUserDTO::new)
             .orElseThrow(() -> new InternalServerErrorException("User could not be found"));
     }
 
@@ -109,18 +109,18 @@ public class AccountResource {
      * @throws RuntimeException 500 (Internal Server Error) if the user login wasn't found
      */
     @PostMapping("/account")
-    public void saveAccount(@Valid @RequestBody UserDTO userDTO) {
+    public void saveAccount(@Valid @RequestBody IDBUserDTO userDTO) {
         String userLogin = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
-        Optional<User> existingUser = userRepository.findOneByEmailIgnoreCase(userDTO.getEmail());
-        if (existingUser.isPresent() && (!existingUser.get().getLogin().equalsIgnoreCase(userLogin))) {
+        Optional<IDBUser> existingUser = userRepository.findOneByEmailIgnoreCase(userDTO.getEmail());
+        if (existingUser.isPresent() && (!existingUser.get().getEmail().equalsIgnoreCase(userLogin))) {
             throw new EmailAlreadyUsedException();
         }
-        Optional<User> user = userRepository.findOneByLogin(userLogin);
-        if (!user.isPresent()) {
-            throw new InternalServerErrorException("User could not be found");
-        }
-        userService.updateUser(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail(),
-            userDTO.getLangKey(), userDTO.getImageUrl());
+		/*
+		 * Optional<IDBUser> user = userRepository.findOneByLogin(userLogin); if
+		 * (!user.isPresent()) { throw new
+		 * InternalServerErrorException("User could not be found"); }
+		 */
+        userService.updateUser(userDTO.getLangKey(), userDTO.getImageUrl());
     }
 
     /**
@@ -163,7 +163,7 @@ public class AccountResource {
         if (!checkPasswordLength(keyAndPassword.getNewPassword())) {
             throw new InvalidPasswordException();
         }
-        Optional<User> user =
+        Optional<IDBUser> user =
             userService.completePasswordReset(keyAndPassword.getNewPassword(), keyAndPassword.getKey());
 
         if (!user.isPresent()) {
