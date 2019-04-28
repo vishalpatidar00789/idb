@@ -6,8 +6,8 @@ import { IFilters, Filters } from 'app/shared/model/filters.model';
 
 @Component({
     selector: 'jhi-filters',
-    templateUrl: './filters.component.html'
-    // styleUrls: ['filters.scss']
+    templateUrl: './filters.component.html',
+    styleUrls: ['filters.style.scss']
 })
 export class FiltersComponent implements OnInit {
     account: Account;

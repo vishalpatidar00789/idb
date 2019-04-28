@@ -5,8 +5,8 @@ import { MediaMatcher } from '@angular/cdk/layout';
 
 @Component({
     selector: 'jhi-dashboard',
-    templateUrl: './dashboard.component.html'
-    // styleUrls: ['filters.scss']
+    templateUrl: './dashboard.component.html',
+    styleUrls: ['dashboard.scss']
 })
 export class DashboardComponent implements OnInit {
     private preferences: Preferences;

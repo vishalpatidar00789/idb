@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 
 @Component({
     selector: 'jhi-anon',
-    templateUrl: './anon.component.html'
-    // styleUrls: ['anon.scss']
+    templateUrl: './anon.component.html',
+    styleUrls: ['anon.scss']
 })
 export class AnonComponent implements OnInit {
     account: Account;
