@@ -1,4 +1,5 @@
 import './vendor.ts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -21,10 +22,12 @@ import * as moment from 'moment';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ErrorComponent } from './layouts';
 import { MatchesModule } from './matches/matches.module';
+import { AnonModule } from 'app/anon';
 
 @NgModule({
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
         Ng2Webstorage.forRoot({ prefix: 'jhi', separator: '-' }),
         NgJhipsterModule.forRoot({
             // set below to true to make alerts look like toast
@@ -38,7 +41,8 @@ import { MatchesModule } from './matches/matches.module';
         // jhipster-needle-angular-add-module JHipster will add new module here
         IdbEntityModule,
         IdbAppRoutingModule,
-        MatchesModule
+        MatchesModule.forRoot(),
+        AnonModule
     ],
     declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, FooterComponent],
     providers: [

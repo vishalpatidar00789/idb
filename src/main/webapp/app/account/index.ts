@@ -1,3 +1,4 @@
+export * from './packages/user-packages.service';
 export * from './activate/activate.component';
 export * from './activate/activate.service';
 export * from './activate/activate.route';
@@ -16,4 +17,12 @@ export * from './register/register.service';
 export * from './register/register.route';
 export * from './settings/settings.component';
 export * from './settings/settings.route';
+export * from './payment/payment.component';
+export * from './payment/payment.route';
+export * from './packages/packages.component';
+export * from './prefs/prefs.component';
+export * from './prefs/prefs.route';
+export * from './dashboard/dashboard.component';
+export * from './dashboard/dashboard.route';
+export * from './account.component';
 export * from './account.route';

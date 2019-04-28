@@ -4,14 +4,27 @@ import { Observable, Subject } from 'rxjs';
 
 import { SERVER_API_URL } from 'app/app.constants';
 import { Account } from 'app/core/user/account.model';
+import { Preferences } from '../user/preferences.model';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
     private userIdentity: any;
     private authenticated = false;
     private authenticationState = new Subject<any>();
+    private preference: Preferences;
 
     constructor(private http: HttpClient) {}
+
+    updatePreferences(preferences: any): void {
+        // update preferences in the database and store it here as well.
+        console.log('preferences update :: ' + JSON.stringify(this.preference));
+        this.preference = preferences;
+    }
+
+    getPreferences(): Preferences {
+        console.log('preferences fetch :: ' + JSON.stringify(this.preference));
+        return this.preference;
+    }
 
     fetch(): Observable<HttpResponse<Account>> {
         return this.http.get<Account>(SERVER_API_URL + 'api/account', { observe: 'response' });

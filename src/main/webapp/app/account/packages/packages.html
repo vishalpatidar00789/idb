@@ -1,0 +1,58 @@
+<div class="row">
+    <div class="col-md-12">
+        <h4>Select Your Package</h4>
+    </div>
+
+    <mat-card class="example-card col-md-3" *ngFor="let package of availPackages"
+        style="margin: 10px; font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'sans-serif'; box-shadow: 0 2px 1px -3px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 3px rgba(0,0,0,.12);">
+        <mat-card-content>
+            <h3>{{package.title}}</h3>
+            <h5>Blind Coins {{package.totalChapters}}</h5>
+            <h5>Validity {{package.expiry}} days</h5>
+            <h4>Rs. {{package.price}}</h4>
+        </mat-card-content>
+        <mat-card-actions>
+            <button style="width: 100%;" [color] = "selectColor(package)" mat-raised-button color="primary" (click)="selectPkg(package)">{{package.type}}</button>
+            <!-- <mat-chip #freeChip="matChip" *ngIf= "package.type === 'FREE'" color="primary" value="FREE" [selectable]="true"
+                (click)="selectPkg(freeChip)" [selected]="isFreeSelected">
+                {{package.type}}
+            </mat-chip>
+            <mat-chip #goldChip="matChip" *ngIf= "package.type === 'GOLD'" color="primary" value="GOLD" [selectable]="true"
+                (click)="selectPkg(goldChip)" [selected]="isGoldSelected">
+                {{package.type}}
+            </mat-chip>
+            <mat-chip #dimondChip="matChip" *ngIf= "package.type === 'DIMOND'" color="primary" value="DIMOND" [selectable]="true"
+                (click)="selectPkg(dimondChip)" [selected]="isDimondSelected">
+                {{package.type}}
+            </mat-chip> -->
+        </mat-card-actions>
+    </mat-card>
+</div>
+<button mat-raised-button type="button" id="register" color="primary" style="margin-top: 15px;"
+    (click)="next()">NEXT</button>
+<!-- <mat-list>
+            <mat-list-item style="margin-left: 0px;">Item 1
+              <div class="">
+                  <mat-chip #freeChip="matChip" color="primary" value="FREE" [selectable]="true"
+                  (click)="selectPkg(freeChip)" [selected] = "isFreeSelected">
+                  FREE
+              </mat-chip>
+              </div>
+                
+            </mat-list-item>
+            <div class="col-md-12"><mat-divider></mat-divider></div>
+            
+            <mat-list-item style="margin-left: 0px;">Item 2
+                <mat-chip #goldChip="matChip" color="primary" value="GOLD" [selectable]="true"
+                (click)="selectPkg(goldChip)" [selected] = "isGoldSelected">
+                GOLD
+            </mat-chip>
+            </mat-list-item>
+            <div class="col-md-12"><mat-divider></mat-divider></div>
+            <mat-list-item style="margin-left: 0px;">Item 3
+                <mat-chip #dChip="matChip" color="primary" value="DIMOND" [selectable]="true"
+                (click)="selectPkg(dChip)" [selected] = "isDimondSelected">
+                FREE
+            </mat-chip>
+            </mat-list-item>
+          </mat-list> -->

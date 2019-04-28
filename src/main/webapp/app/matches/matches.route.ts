@@ -1,10 +1,10 @@
-import { Route } from '@angular/router';
+import { Route, Routes } from '@angular/router';
 
-import { ListMatchesComponent } from './list-matches.component';
+import { MatchesComponent } from './matches.component';
 
 export const MATCHES_ROUTE: Route = {
-    path: 'listMatches',
-    component: ListMatchesComponent,
+    path: 'matches',
+    component: MatchesComponent,
     data: {
         authorities: [],
         pageTitle: 'Welcome, Java Hipster!'

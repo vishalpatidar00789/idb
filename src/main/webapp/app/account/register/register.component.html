@@ -1,124 +1,105 @@
-<div>
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <h1>Registration</h1>
+<!-- <mat-card class="example-card"
+    style="margin-bottom: 20px; font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'sans-serif'; box-shadow: 0 2px 1px -3px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 3px rgba(0,0,0,.12);">
+    <mat-card-header>
+        <mat-card-title>You are 3 steps away to find your mate</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-button>REGISTRATION POLICY</button>
+    </mat-card-actions>
+</mat-card> -->
 
-            <div class="alert alert-success" *ngIf="success">
-                <strong>Registration saved!</strong> Please check your email for confirmation.
-            </div>
+<mat-tab-group mat-stretch-tabs class="example-stretched-tabs" [selectedIndex]="index" dynamicHeight>
+        <!-- mat-elevation-z4 -->
+        <mat-tab label="Register" [disabled]="regTab">
+            <br>
+            <div class="row">
 
-            <div class="alert alert-danger" *ngIf="error">
-                <strong>Registration failed!</strong> Please try again later.
-            </div>
+                <div class="example-container col-md-6">
+                    <mat-card class="example-card"
+                        style="margin: 0px 5px 10px 5px; font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'sans-serif'; box-shadow: 0 2px 1px -3px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 3px rgba(0,0,0,.12);">
+                        <mat-card-content>
+                            <form [formGroup]="registerForm" autocomplete="off" novalidate
+                                (ngSubmit)="register(registerForm.value)" fxLayout="column wrap"
+                                fxLayoutAlign="center center" fxLayoutGap="10px">
+                                <mat-form-field hideRequiredMarker="true" style="width: 100%">
+                                    <input matInput type="email" name="email" placeholder="Your email"
+                                        style="width: 100%" formControlName="email" id="email">
+                                    <mat-hint align="end">Not more then 60 characters long.</mat-hint>
+                                    <mat-error *ngIf="hasError('email', 'required')">Name is required</mat-error>
+                                    <mat-error *ngIf="hasError('email', 'maxlength')">You have more than 60
+                                        characters
+                                    </mat-error>
+                                </mat-form-field>
+                                <mat-form-field hideRequiredMarker="true" style="width: 100%">
+                                    <input matInput type="password" id="password" name="password"
+                                        placeholder="New password" formControlName="password" style="width: 100%">
+                                    <mat-hint align="end">Not more then 60 characters long.</mat-hint>
+                                    <mat-error *ngIf="hasError('password', 'required')">Name is required</mat-error>
+                                    <mat-error *ngIf="hasError('password', 'maxlength')">You have more than 60
+                                        characters
+                                    </mat-error>
 
-            <div class="alert alert-danger" *ngIf="errorUserExists">
-                <strong>Login name already registered!</strong> Please choose another one.
-            </div>
+                                </mat-form-field>
+                                <mat-form-field hideRequiredMarker="true" style="width: 100%">
+                                    <input matInput type="password" id="confirmPassword" name="confirmPassword"
+                                        placeholder="Confirm the new password" formControlName="confirmPassword"
+                                        style="width: 100%">
+                                    <mat-hint align="end">Not more then 60 characters long.</mat-hint>
+                                    <mat-error *ngIf="hasError('confirmPassword', 'required')">Name is required
+                                    </mat-error>
+                                    <mat-error *ngIf="hasError('confirmPassword', 'maxlength')">You have more than
+                                        60
+                                        characters
+                                    </mat-error>
+                                </mat-form-field>
+                                <button mat-raised-button type="submit" id="register" color="primary"
+                                    style="width: 100%; margin-top: 15px;">REGISTER</button>
+                            </form>
+                        </mat-card-content>
+                    </mat-card>
 
-            <div class="alert alert-danger" *ngIf="errorEmailExists">
-                <strong>Email is already in use!</strong> Please choose another one.
-            </div>
-
-            <div class="alert alert-danger" *ngIf="doNotMatch">
-                The password and its confirmation do not match!
-            </div>
-        </div>
-    </div>
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <form name="form" role="form" (ngSubmit)="register()" #registerForm="ngForm" *ngIf="!success">
-                <div class="form-group">
-                    <label class="form-control-label" for="login">Username</label>
-                    <input type="text" class="form-control" [(ngModel)]="registerAccount.login" id="login" name="login" #login="ngModel" placeholder="Your username"
-                            required minlength="1" maxlength="50" pattern="^[_.@A-Za-z0-9-]*$">
-                    <div *ngIf="login.dirty && login.invalid">
-                        <small class="form-text text-danger" *ngIf="login.errors.required">
-                            Your username is required.
-                        </small>
-                        <small class="form-text text-danger" *ngIf="login.errors.minlength"
-                               >
-                            Your username is required to be at least 1 character.
-                        </small>
-                        <small class="form-text text-danger" *ngIf="login.errors.maxlength"
-                               >
-                            Your username cannot be longer than 50 characters.
-                        </small>
-                        <small class="form-text text-danger" *ngIf="login.errors.pattern"
-                              >
-                            Your username can only contain letters and digits.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" #email="ngModel" placeholder="Your email"
-                            [(ngModel)]="registerAccount.email" minlength=5 maxlength=254 email required>
-                    <div *ngIf="email.dirty && email.invalid">
-                        <small class="form-text text-danger" *ngIf="email.errors.required"
-                               >
-                            Your email is required.
-                        </small>
-                        <small class="form-text text-danger" *ngIf="email.errors.invalid"
-                              >
-                            Your email is invalid.
-                        </small>
-                        <small class="form-text text-danger" *ngIf="email.errors.minlength"
-                              >
-                            Your email is required to be at least 5 characters.
-                        </small>
-                        <small class="form-text text-danger" *ngIf="email.errors.maxlength"
-                              >
-                            Your email cannot be longer than 100 characters.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="password">New password</label>
-                    <input type="password" class="form-control" id="password" name="password" #password="ngModel" placeholder="New password"
-                            [(ngModel)]="registerAccount.password" minlength=4 maxlength=50 required>
-                    <div *ngIf="password.dirty && password.invalid">
-                        <small class="form-text text-danger" *ngIf="password.errors.required"
-                               >
-                            Your password is required.
-                        </small>
-                        <small class="form-text text-danger" *ngIf="password.errors.minlength"
-                               >
-                            Your password is required to be at least 4 characters.
-                        </small>
-                        <small class="form-text text-danger" *ngIf="password.errors.maxlength"
-                               >
-                            Your password cannot be longer than 50 characters.
-                        </small>
-                    </div>
-                    <jhi-password-strength-bar [passwordToCheck]="registerAccount.password"></jhi-password-strength-bar>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="confirmPassword">New password confirmation</label>
-                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" #confirmPasswordInput="ngModel" placeholder="Confirm the new password"
-                            [(ngModel)]="confirmPassword" minlength=4 maxlength=50 required>
-                    <div *ngIf="confirmPasswordInput.dirty && confirmPasswordInput.invalid">
-                        <small class="form-text text-danger" *ngIf="confirmPasswordInput.errors.required"
-                              >
-                            Your confirmation password is required.
-                        </small>
-                        <small class="form-text text-danger" *ngIf="confirmPasswordInput.errors.minlength"
-                             >
-                            Your confirmation password is required to be at least 4 characters.
-                        </small>
-                        <small class="form-text text-danger" *ngIf="confirmPasswordInput.errors.maxlength"
-                              >
-                            Your confirmation password cannot be longer than 50 characters.
-                        </small>
-                    </div>
                 </div>
 
-                <button type="submit" [disabled]="registerForm.form.invalid" class="btn btn-primary">Register</button>
-            </form>
-            <p></p>
-            <div class="alert alert-warning">
-                <span>If you want to </span>
-                <a class="alert-link" (click)="openLogin()">sign in</a><span>, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").</span>
+                <!-- <div class="example-container col-md-6" *ngIf="!regOrLogin">
+                    <mat-card class="example-card"
+                        style="margin-bottom: 10px; font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'sans-serif'; box-shadow: 0 2px 1px -3px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 3px rgba(0,0,0,.12);">
+                        <mat-card-content>
+                            <mat-form-field hideRequiredMarker="true" style="width: 100%">
+                                <input matInput type="email" name="username" placeholder="Your email"
+                                    style="width: 100%" id="username" [(ngModel)]="username">
+                                <mat-hint align="end">roygood@abc.com</mat-hint>
+                                <mat-error *ngIf="!username">Email is required</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field hideRequiredMarker="true" style="width: 100%">
+                                <input matInput type="password" name="password" placeholder="Your password"
+                                    style="width: 100%" id="password" [(ngModel)]="password">
+                                <mat-hint align="end">use your account password</mat-hint>
+                                <mat-error *ngIf="!password">Password is required</mat-error>
+                            </mat-form-field>
+                            <button mat-raised-button type="button" id="register" color="primary"
+                                style="width: 100%; margin-top: 15px;" (click)="login()">LOGIN</button>
+                            <div style="margin-top: 10px">
+                                <a class="alert-link" (click)="requestResetPassword()">Did you forget your
+                                    password?</a>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div> -->
             </div>
-        </div>
-    </div>
-</div>
+        </mat-tab>
+        <mat-tab label="Preferences" [disabled]="selPkgTab"><br>
+            <jhi-prefs></jhi-prefs>
+        </mat-tab>
+        <mat-tab label="Choose Package" [disabled]="selPkgTab"><br>
+            <jhi-packages></jhi-packages>
+        </mat-tab>
+        <mat-tab label="Payment" [disabled]="payTab"><br> Content 3 </mat-tab>
+        
+    </mat-tab-group>
+    <mat-card-actions>
+            <button mat-button>REGISTRATION POLICY</button>
+        </mat-card-actions>

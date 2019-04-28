@@ -1,0 +1,68 @@
+<mat-accordion class="example-headers-align">
+  <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Find your match !
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-panel-title>
+      Your Gender ?
+    </mat-panel-title>
+    <br>
+    <mat-chip-list #chips [multiple]="false" [(ngModel)]="filters.gender">
+      <mat-chip #chip="matChip" *ngFor="let gender of genders" [color]="gender.color" [value]="gender.value"
+        [selectable]="true" (click)="selectGender(chip, gender)">
+        {{gender.value}}
+      </mat-chip>
+    </mat-chip-list>
+    <br>
+    <mat-panel-title>
+      Show me
+    </mat-panel-title>
+    <br>
+    <mat-chip-list [multiple]="false" [(ngModel)]="filters.genderPref">
+      <mat-chip #chip2="matChip" *ngFor="let genPref of genders" [color]="genPref.color" [value]="genPref.value"
+        [selectable]="true" (click)="selectGenderPref(chip2, genPref)">
+        {{genPref.value}}
+      </mat-chip>
+    </mat-chip-list>
+    <!-- <mat-radio-group [(ngModel)]="filters.genderPref" class="example-radio-group">
+      <mat-radio-button class="example-radio-button" value="MALE">
+        MALE &nbsp;
+        <span style="color: black;"><i class="fas fa-mars fa-lg"></i></span>&nbsp;&nbsp;</mat-radio-button>
+      <mat-radio-button class="example-radio-button" value="FEMALE">
+        FEMALE &nbsp;
+        <span style="color: rgb(235, 32, 167);"><i class="fas fa-venus fa-lg"></i></span></mat-radio-button>
+    </mat-radio-group> -->
+    <br>
+    <mat-panel-title>
+      Your City
+    </mat-panel-title>
+    <mat-form-field style="min-width: 200px; width: 98%">
+      <mat-select placeholder="Select Your City" [(ngModel)]="filters.city">
+        <mat-option *ngFor="let city of cities" [value]="city">
+          {{city}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-panel-title>
+      Age
+    </mat-panel-title>
+    <mat-slider style="min-width: 200px; width: 100%" thumbLabel [displayWith]="formatLabel" tickInterval="100" min="18"
+      max="50"></mat-slider>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        More Filters
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    More Filters goes here
+  </mat-expansion-panel>
+  <div class="example-button-row" style="margin-top: 15px;">
+    <button mat-raised-button id="search" color="primary" style="width: 100%" (click)="onSubmit($event)">START
+      DATING</button>
+  </div>
+</mat-accordion>

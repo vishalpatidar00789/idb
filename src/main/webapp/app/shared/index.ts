@@ -10,3 +10,6 @@ export * from './shared-libs.module';
 export * from './shared-common.module';
 export * from './shared.module';
 export * from './util/datepicker-adapter';
+export * from './banner/banner.component';
+export * from './filters/filters.component';
+export * from './match-holder/match-holder.component';

@@ -1,0 +1,29 @@
+<div class="example-container">
+    <form [formGroup]="registerForm" autocomplete="off" novalidate (ngSubmit)="register(registerForm.value)"
+        fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+        <mat-form-field hideRequiredMarker="true" style="width: 100%">
+            <input matInput type="email" name="email" placeholder="Your email" style="width: 100%"
+                formControlName="email" id="email">
+            <mat-hint align="end">Not more then 60 characters long.</mat-hint>
+            <mat-error *ngIf="hasError('email', 'required')">Name is required</mat-error>
+            <mat-error *ngIf="hasError('email', 'maxlength')">You have more than 60 characters</mat-error>
+        </mat-form-field>
+        <mat-form-field hideRequiredMarker="true" style="width: 100%">
+            <input matInput type="password" id="password" name="password" placeholder="New password"
+                formControlName="password" style="width: 100%">
+            <mat-hint align="end">Not more then 60 characters long.</mat-hint>
+            <mat-error *ngIf="hasError('password', 'required')">Name is required</mat-error>
+            <mat-error *ngIf="hasError('password', 'maxlength')">You have more than 60 characters</mat-error>
+
+        </mat-form-field>
+        <mat-form-field hideRequiredMarker="true" style="width: 100%">
+            <input matInput type="password" id="confirmPassword" name="confirmPassword"
+                placeholder="Confirm the new password" formControlName="confirmPassword" style="width: 100%">
+            <mat-hint align="end">Not more then 60 characters long.</mat-hint>
+            <mat-error *ngIf="hasError('confirmPassword', 'required')">Name is required</mat-error>
+            <mat-error *ngIf="hasError('confirmPassword', 'maxlength')">You have more than 60 characters</mat-error>
+        </mat-form-field>
+        <button mat-raised-button type="submit" id="search" color="primary"
+            style="width: 100%; margin-top: 15px;">REGISTER</button>
+    </form>
+</div>

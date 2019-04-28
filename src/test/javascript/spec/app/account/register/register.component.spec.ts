@@ -28,9 +28,9 @@ describe('Component Tests', () => {
 
         it('should ensure the two passwords entered match', () => {
             comp.registerAccount.password = 'password';
-            comp.confirmPassword = 'non-matching';
+            // comp.confirmPassword = 'non-matching';
 
-            comp.register();
+            comp.register(comp.registerAccount);
 
             expect(comp.doNotMatch).toEqual('ERROR');
         });
@@ -39,9 +39,9 @@ describe('Component Tests', () => {
             [Register],
             fakeAsync((service: Register) => {
                 spyOn(service, 'save').and.returnValue(of({}));
-                comp.registerAccount.password = comp.confirmPassword = 'password';
+                comp.registerAccount.password = 'password';
 
-                comp.register();
+                comp.register(comp.registerAccount);
                 tick();
 
                 expect(service.save).toHaveBeenCalledWith({
@@ -65,9 +65,9 @@ describe('Component Tests', () => {
                         error: { type: LOGIN_ALREADY_USED_TYPE }
                     })
                 );
-                comp.registerAccount.password = comp.confirmPassword = 'password';
+                comp.registerAccount.password = 'password';
 
-                comp.register();
+                comp.register(comp.registerAccount);
                 tick();
 
                 expect(comp.errorUserExists).toEqual('ERROR');
@@ -85,9 +85,9 @@ describe('Component Tests', () => {
                         error: { type: EMAIL_ALREADY_USED_TYPE }
                     })
                 );
-                comp.registerAccount.password = comp.confirmPassword = 'password';
+                comp.registerAccount.password = 'password';
 
-                comp.register();
+                comp.register(comp.registerAccount);
                 tick();
 
                 expect(comp.errorEmailExists).toEqual('ERROR');
@@ -104,9 +104,9 @@ describe('Component Tests', () => {
                         status: 503
                     })
                 );
-                comp.registerAccount.password = comp.confirmPassword = 'password';
+                comp.registerAccount.password = 'password';
 
-                comp.register();
+                comp.register(comp.registerAccount);
                 tick();
 
                 expect(comp.errorUserExists).toBeNull();

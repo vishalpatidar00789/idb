@@ -22,8 +22,16 @@ import {
     MatSelectModule,
     MatSnackBarModule,
     MatTabsModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatStepperModule,
+    MatSidenavModule,
+    MatDividerModule,
+    MatToolbarModule
 } from '@angular/material';
+
+import { MatCarouselModule } from '@ngmodule/material-carousel';
 
 @NgModule({
     imports: [
@@ -49,7 +57,15 @@ import {
         MatAutocompleteModule,
         MatRadioModule,
         MatListModule,
-        MatIconModule
+        MatIconModule,
+        MatSliderModule,
+        MatSlideToggleModule,
+        MatExpansionModule,
+        MatCarouselModule,
+        MatStepperModule,
+        MatSidenavModule,
+        MatDividerModule,
+        MatToolbarModule
     ],
     exports: [
         MatButtonModule,
@@ -74,7 +90,15 @@ import {
         MatAutocompleteModule,
         MatRadioModule,
         MatListModule,
-        MatIconModule
+        MatIconModule,
+        MatSliderModule,
+        MatSlideToggleModule,
+        MatExpansionModule,
+        MatCarouselModule,
+        MatStepperModule,
+        MatSidenavModule,
+        MatDividerModule,
+        MatToolbarModule
     ]
 })
 export class JhMaterialModule {}

@@ -11,11 +11,16 @@ import {
     PasswordResetInitComponent,
     PasswordResetFinishComponent,
     SettingsComponent,
+    PaymentComponent,
+    PackagesComponent,
     accountState
 } from './';
+import { ReactiveFormsModule } from '@angular/forms';
+import { PrefsComponent } from './prefs/prefs.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
-    imports: [IdbSharedModule, RouterModule.forChild(accountState)],
+    imports: [IdbSharedModule, RouterModule.forChild(accountState), ReactiveFormsModule],
     declarations: [
         ActivateComponent,
         RegisterComponent,
@@ -23,8 +28,13 @@ import {
         PasswordStrengthBarComponent,
         PasswordResetInitComponent,
         PasswordResetFinishComponent,
-        SettingsComponent
+        SettingsComponent,
+        PaymentComponent,
+        PackagesComponent,
+        PrefsComponent,
+        DashboardComponent
     ],
+    entryComponents: [],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class IdbAccountModule {}
