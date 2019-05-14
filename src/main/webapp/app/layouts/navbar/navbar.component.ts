@@ -1,7 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-
 import { VERSION } from 'app/app.constants';
 import { AccountService, LoginModalService, LoginService } from 'app/core';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
@@ -18,7 +16,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     // isNavbarCollapsed: boolean;
     // languages: any[];
     swaggerEnabled: boolean;
-    modalRef: NgbModalRef;
+    modalRef: any;
     version: string;
 
     events: string[] = [];
@@ -66,7 +64,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
 
     login() {
-        this.modalRef = this.loginModalService.open();
+        this.modalRef = this.loginModalService.open(true);
+    }
+
+    signUp() {
+        this.modalRef = this.loginModalService.open(false);
     }
 
     logout() {

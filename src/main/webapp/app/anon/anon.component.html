@@ -1,36 +1,72 @@
-<!--annon landing page-->
-<!-- <div class="row">
-    
-    <div *ngIf="listMatches" class="col-md-8">
-        
+<mat-card class="example-card"
+    style="margin: 0px 5px 10px 5px; font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'sans-serif'; box-shadow: 0 2px 1px -3px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 3px rgba(0,0,0,.12);">
+    <!-- <mat-card-header style = "margin: 0px">
+        <mat-card-title>You are 3 steps away to find your mate</mat-card-title>
+    </mat-card-header> -->
+    <mat-card-title>You are 3 steps away to find your mate</mat-card-title>
+    <mat-card-content>
         <div class="row">
-            <div *ngFor="let match of listMatches" class="col-md-6">
-
-                <jhi-match-holder [match]="match"></jhi-match-holder>
-
+            <div class="col-md-6">
+                <mat-panel-title>
+                    I am ?
+                </mat-panel-title>
+                <br><br>
+                <mat-chip-list [multiple]="false" [(ngModel)]="prefs.gender">
+                    <mat-chip #chip1="matChip" *ngFor="let gender of genders" [color]="gender.color"
+                        [value]="gender.value" [selectable]="true" (click)="selectGender(chip1, gender)">
+                        {{gender.value}}
+                    </mat-chip>
+                </mat-chip-list>
+                <br>
+                <mat-panel-title>
+                    Show me ?
+                </mat-panel-title>
+                <br><br>
+                <mat-chip-list [multiple]="false" [(ngModel)]="prefs.genderPref">
+                    <mat-chip #chip2="matChip" *ngFor="let genPref of genderPrefs" [color]="genPref.color"
+                        [value]="genPref.value" [selectable]="true" (click)="selectGenderPref(chip2, genPref)">
+                        {{genPref.value}}
+                    </mat-chip>
+                </mat-chip-list>
+                <br>
+                <mat-form-field style="min-width: 200px; width: 98%">
+                    <mat-select placeholder="Select Your City" [(ngModel)]="prefs.city">
+                        <mat-option *ngFor="let city of cities" [value]="city">
+                            {{city}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <br><br>
+                <mat-panel-title>
+                    Your Partner's Preferred Age ?
+                </mat-panel-title>
+                <mat-slider style="min-width: 200px; width: 100%" thumbLabel [displayWith]="formatLabel"
+                    tickInterval="100" min="18" [(ngModel)]="prefs.agePref" max="50"></mat-slider>
+            </div>
+            <div class="col-md-6">
+                <mat-panel-title>
+                    What are you looking for ?
+                </mat-panel-title>
+                <br><br>
+                <mat-chip-list [multiple]="false" [(ngModel)]="selectedMood">
+                    <mat-chip #chip3="matChip" *ngFor="let mood of moods" [color]="mood.color" [value]="mood.value"
+                        [selectable]="true" (click)="selectMood(chip3, mood)">
+                        {{mood.value}}
+                    </mat-chip>
+                </mat-chip-list>
             </div>
         </div>
-    </div>
-    <div class="col-md-4" *ngIf="listMatches">
-        <jhi-filters (listMatches)="onMatchesFound($event)"></jhi-filters>
-    </div>
-    <div class="col-md-8" *ngIf="!listMatches">
-        <jhi-banner></jhi-banner>
-    </div>
-    <div class="col-md-4" *ngIf="!listMatches">
-        <jhi-filters (listMatches)="onMatchesFound($event)"></jhi-filters>
-    </div>
-</div> -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="example-button-row" style="margin-top: 10px">
+                    <button mat-raised-button id="search" color="primary" style="width: 100%"
+                        (click)="onSubmit()">FIND YOUR MATE NOW</button>
+                </div>
+            </div>
 
-
-
-<div class="row" style="margin: 0px">
-    
-    <div class="col-md-12" style="margin: 0px; padding: 0px">
-        <jhi-banner></jhi-banner>
-    </div>
-    <!-- <div class="col-md-4" style="margin: 0px; padding: 0px">
-        <jhi-filters (listMatches)="onMatchesFound($event)"></jhi-filters>
-    </div> -->
-    <!-- <jhi-banner></jhi-banner> -->
-</div>
+        </div>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-button>HOME</button>
+    </mat-card-actions>
+</mat-card>

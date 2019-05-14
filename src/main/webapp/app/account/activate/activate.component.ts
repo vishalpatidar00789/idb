@@ -32,6 +32,6 @@ export class ActivateComponent implements OnInit {
     }
 
     login() {
-        this.modalRef = this.loginModalService.open();
+        this.modalRef = this.loginModalService.open(true);
     }
 }

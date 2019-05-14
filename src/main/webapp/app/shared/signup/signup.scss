@@ -1,0 +1,17 @@
+.example-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.example-container > * {
+    width: 100%;
+    // margin-top: 15px;
+}
+.ng-invalid:not(form) {
+    border-left: 0px;
+}
+
+.vl {
+    border-right: 6px solid gray;
+    // margin-bottom: 15px;
+}

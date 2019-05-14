@@ -8,14 +8,23 @@ import { FiltersComponent } from 'app/shared/filters/filters.component';
 import { BannerComponent } from 'app/shared/banner/banner.component';
 import { CarouselModule } from 'ngx-bootstrap';
 import { MatchHolderComponent } from './match-holder/match-holder.component';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
     imports: [IdbSharedLibsModule, IdbSharedCommonModule, JhMaterialModule, NgxGalleryModule, CarouselModule.forRoot()],
-    declarations: [JhiLoginModalComponent, HasAnyAuthorityDirective, FiltersComponent, BannerComponent, MatchHolderComponent],
+    declarations: [
+        SignupComponent,
+        JhiLoginModalComponent,
+        HasAnyAuthorityDirective,
+        FiltersComponent,
+        BannerComponent,
+        MatchHolderComponent
+    ],
     providers: [{ provide: NgbDateAdapter, useClass: NgbDateMomentAdapter }],
     entryComponents: [JhiLoginModalComponent],
     exports: [
         IdbSharedCommonModule,
+        SignupComponent,
         JhiLoginModalComponent,
         HasAnyAuthorityDirective,
         JhMaterialModule,

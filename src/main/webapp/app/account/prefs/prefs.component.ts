@@ -11,8 +11,7 @@ import { IFilters, Filters } from 'app/shared/model/filters.model';
 })
 export class PrefsComponent implements OnInit {
     account: Account;
-    filters: IFilters;
-    @Output() listMatches: any = new EventEmitter<any>();
+    prefs: IFilters;
     mchecked = true;
     fchecked = false;
     indeterminate = false;
@@ -29,6 +28,14 @@ export class PrefsComponent implements OnInit {
     vertical = false;
     genders: any[] = [{ value: 'MALE', color: 'primary', checked: false }, { value: 'FEMALE', color: 'accent', checked: false }];
     genderPrefs: any[] = [{ value: 'MALE', color: 'primary', checked: false }, { value: 'FEMALE', color: 'accent', checked: false }];
+    types: any[] = [
+        { value: 'ROMANTIC' },
+        { value: 'SLIM' },
+        { value: 'EXTROVERT' },
+        { value: 'HUMEROUS' },
+        { value: 'BOLD' },
+        { value: 'ROMANTIC' }
+    ];
     cities: string[] = ['Mumbai', 'Pune'];
     mcolor = 'black';
     fcolor = 'accent';
@@ -43,11 +50,9 @@ export class PrefsComponent implements OnInit {
         if (!this.account) {
             this.account = undefined;
         }
-        this.filters = new Filters();
-        this.filters.age = 25;
-        this.filters.city = '';
-        this.filters.gender = 'MALE';
-        this.filters.genderPref = 'FEMALE';
+        this.prefs = new Filters();
+        this.prefs.city = '';
+        this.prefs.genderPref = 'FEMALE';
         this.maleSelected = true;
         this.femaleSelected = false;
         // if(this.femaleSelected){this.femaleSelected = true} else {this.femaleSelected = false}
@@ -57,27 +62,27 @@ export class PrefsComponent implements OnInit {
     panelOpenState: Boolean = true;
 
     onSubmit(): void {
-        console.log('filters :: ' + this.filters);
+        console.log('prefs :: ' + this.prefs);
         // this.listMatches.emit('hi these are your matches');
         // this.panelOpenState = false;
         // update preferences into user profile and on success navigate to dashboard
-        this.accountService.updatePreferences(this.filters);
+        this.accountService.updatePreferences(this.prefs);
         this.router.navigate(['/dashboard']);
     }
 
     onChangeOfGender(gender) {
         console.log('selected val ' + JSON.stringify(gender.value));
         gender.checked = !gender.checked;
-        this.filters.gender = gender.value;
+        // this.prefs.gender = gender.value;
     }
 
     selectGender(chip, gender) {
-        this.filters.gender = gender.value;
+        // this.prefs.gender = gender.value;
         chip.select();
     }
 
     selectGenderPref(chip, gender) {
-        this.filters.genderPref = gender.value;
+        this.prefs.genderPref = gender.value;
         chip.select();
     }
 

@@ -44,9 +44,9 @@ export class FiltersComponent implements OnInit {
             this.account = undefined;
         }
         this.filters = new Filters();
-        this.filters.age = 25;
+        // this.filters.age = 25;
         this.filters.city = '';
-        this.filters.gender = 'MALE';
+        // this.filters.gender = 'MALE';
         this.filters.genderPref = 'FEMALE';
         this.maleSelected = true;
         this.femaleSelected = false;
@@ -66,11 +66,11 @@ export class FiltersComponent implements OnInit {
     onChangeOfGender(gender) {
         console.log('selected val ' + JSON.stringify(gender.value));
         gender.checked = !gender.checked;
-        this.filters.gender = gender.value;
+        // this.filters.gender = gender.value;
     }
 
     selectGender(chip, gender) {
-        this.filters.gender = gender.value;
+        // this.filters.gender = gender.value;
         chip.select();
     }
 

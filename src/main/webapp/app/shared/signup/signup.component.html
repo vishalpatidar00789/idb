@@ -1,15 +1,41 @@
-<mat-card class="example-card"
-style="margin: 0px 5px 10px 5px; font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'sans-serif'; box-shadow: 0 2px 1px -3px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 3px rgba(0,0,0,.12);">
-    <mat-card-header>
-        <mat-card-title>You are 3 steps away to find your mate</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-            <jhi-signup></jhi-signup>
-    </mat-card-content>
-    <mat-card-actions>
-        <button mat-button>REGISTRATION POLICY</button>
-    </mat-card-actions>
-</mat-card>
+<br>
+            <form [formGroup]="registerForm" autocomplete="off" novalidate
+            (ngSubmit)="register(registerForm.value)" fxLayout="column wrap"
+            fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-form-field hideRequiredMarker="true" style="width: 100%">
+                <input matInput type="email" name="email" placeholder="Your email"
+                    style="width: 100%" formControlName="email" id="email">
+                <mat-hint align="end">Not more then 60 characters long.</mat-hint>
+                <mat-error *ngIf="hasError('email', 'required')">Name is required</mat-error>
+                <mat-error *ngIf="hasError('email', 'maxlength')">You have more than 60
+                    characters
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field hideRequiredMarker="true" style="width: 100%">
+                <input matInput type="password" id="password" name="password"
+                    placeholder="New password" formControlName="password" style="width: 100%">
+                <mat-hint align="end">Not more then 60 characters long.</mat-hint>
+                <mat-error *ngIf="hasError('password', 'required')">Name is required</mat-error>
+                <mat-error *ngIf="hasError('password', 'maxlength')">You have more than 60
+                    characters
+                </mat-error>
+
+            </mat-form-field>
+            <mat-form-field hideRequiredMarker="true" style="width: 100%">
+                <input matInput type="password" id="confirmPassword" name="confirmPassword"
+                    placeholder="Confirm the new password" formControlName="confirmPassword"
+                    style="width: 100%">
+                <mat-hint align="end">Not more then 60 characters long.</mat-hint>
+                <mat-error *ngIf="hasError('confirmPassword', 'required')">Name is required
+                </mat-error>
+                <mat-error *ngIf="hasError('confirmPassword', 'maxlength')">You have more than
+                    60
+                    characters
+                </mat-error>
+            </mat-form-field>
+            <button mat-raised-button type="submit" id="register" color="primary"
+                style="width: 100%; margin-top: 15px;">REGISTER</button>
+        </form>
 
 <!-- <mat-tab-group mat-stretch-tabs class="example-stretched-tabs" [selectedIndex]="index" dynamicHeight>
         <mat-tab label="Register" [disabled]="regTab">

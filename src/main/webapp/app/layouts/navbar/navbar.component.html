@@ -12,9 +12,9 @@
         <a mat-list-item (click) = "login()" *ngIf="!isAuthenticated()" style="float: right; margin-left: 15px;">
             <mat-icon>input</mat-icon>
         </a>
-        <a mat-list-item routerLink="/register" *ngIf="!isAuthenticated()" style="float: right; margin-left: 15px;">
+        <!-- <a mat-list-item routerLink="/register" *ngIf="!isAuthenticated()" style="float: right; margin-left: 15px;">
             <mat-icon>person_add</mat-icon>
-        </a>
+        </a> -->
         <a mat-list-item (click) = "logout()" *ngIf="isAuthenticated()" style="float: right; margin-left: 15px;">
             <mat-icon>logout</mat-icon>
         </a>
@@ -68,7 +68,7 @@
                 <a mat-list-item (click)="login()">
                     <mat-icon>input</mat-icon><span style="margin-left: 15px">Login</span>
                 </a>
-                <a mat-list-item routerLink="/register">
+                <a mat-list-item (click)="signUp()">
                     <mat-icon>person_add</mat-icon><span style="margin-left: 15px">Sign Up</span>
                 </a>
             </mat-nav-list>

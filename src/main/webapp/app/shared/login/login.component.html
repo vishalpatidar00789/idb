@@ -1,4 +1,4 @@
-<div class="modal-header">
+<!-- <div class="modal-header">
     <h4 class="modal-title">Sign in</h4>
     <button aria-label="Close" data-dismiss="modal" class="close" type="button" (click)="activeModal.dismiss('closed')"><span aria-hidden="true">x</span>
     </button>
@@ -40,4 +40,39 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
+
+
+<mat-dialog-content class="mat-typography" style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'sans-serif'; box-shadow: 0 2px 1px -3px rgba(0,0,0,.2)">
+    <mat-tab-group mat-stretch-tabs class="example-stretched-tabs" [selectedIndex]="index" dynamicHeight>
+            <mat-tab label="Sign In">
+                <br>
+                    <mat-form-field hideRequiredMarker="true" style="width: 100%">
+                            <input matInput type="email" name="username" placeholder="Your email"
+                                style="width: 100%" id="username" [(ngModel)]="username">
+                            <mat-hint align="end">roygood@abc.com</mat-hint>
+                            <mat-error *ngIf="!username">Email is required</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field hideRequiredMarker="true" style="width: 100%">
+                            <input matInput type="password" name="password" placeholder="Your password"
+                                style="width: 100%" id="password" [(ngModel)]="password">
+                            <mat-hint align="end">use your account password</mat-hint>
+                            <mat-error *ngIf="!password">Password is required</mat-error>
+                        </mat-form-field>
+                        <button mat-raised-button type="button" id="register" color="primary"
+                            style="width: 100%; margin-top: 15px;" (click)="login()">LOGIN</button>
+                        <div style="margin-top: 10px">
+                            <a class="alert-link" (click)="requestResetPassword()">Did you forget your
+                                password?</a>
+                        </div>
+            </mat-tab>
+            <mat-tab label="Sign Up">
+                <jhi-signup></jhi-signup>
+            </mat-tab>
+    </mat-tab-group>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

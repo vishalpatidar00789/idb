@@ -1,22 +1,27 @@
-import { Component, AfterViewInit, Renderer, ElementRef } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, AfterViewInit, Renderer, ElementRef, Inject, Output, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { LoginService } from 'app/core/login/login.service';
 import { StateStorageService } from 'app/core/auth/state-storage.service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { EventEmitter } from 'protractor';
 
 @Component({
     selector: 'jhi-login-modal',
     templateUrl: './login.component.html'
 })
-export class JhiLoginModalComponent implements AfterViewInit {
+export class JhiLoginModalComponent implements OnInit, AfterViewInit {
     authenticationError: boolean;
     password: string;
     rememberMe: boolean;
     username: string;
     credentials: any;
-
+    isSignInDisabled: Boolean = false;
+    isSignUpDisabled: Boolean = true;
+    index = 0;
+    // @Output()selectedIndexChange: EventEmitter = ;
+    // @Output()selectedTabChange: EventEmitter = new EventEmitter();
     constructor(
         private eventManager: JhiEventManager,
         private loginService: LoginService,
@@ -24,13 +29,35 @@ export class JhiLoginModalComponent implements AfterViewInit {
         private elementRef: ElementRef,
         private renderer: Renderer,
         private router: Router,
-        public activeModal: NgbActiveModal
+        public dialogRef: MatDialogRef<JhiLoginModalComponent>,
+        @Inject(MAT_DIALOG_DATA) public data: any
     ) {
         this.credentials = {};
     }
 
+    ngOnInit(): void {
+        if (this.data && !this.data.isLogin) {
+            console.log('is login:: ' + this.data.isLogin);
+            this.index = 1;
+        } else {
+            console.log('is login:: ' + this.data.isLogin);
+            this.index = 0;
+        }
+    }
+
+    onNoClick(): void {
+        this.dialogRef.close();
+    }
+
+    onTabChange(tab): void {
+        console.log('tab changed :: ' + tab.toString() + ' index :: ' + this.index);
+        this.index = 1;
+    }
+
+    loadDynamicContent() {}
+
     ngAfterViewInit() {
-        setTimeout(() => this.renderer.invokeElementMethod(this.elementRef.nativeElement.querySelector('#username'), 'focus', []), 0);
+        // setTimeout(() => this.renderer.invokeElementMethod(this.elementRef.nativeElement.querySelector('#username'), 'focus', []), 0);
     }
 
     cancel() {
@@ -40,7 +67,8 @@ export class JhiLoginModalComponent implements AfterViewInit {
             rememberMe: true
         };
         this.authenticationError = false;
-        this.activeModal.dismiss('cancel');
+        // this.activeModal.dismiss('cancel');
+        this.dialogRef.close();
     }
 
     login() {
@@ -52,7 +80,8 @@ export class JhiLoginModalComponent implements AfterViewInit {
             })
             .then(() => {
                 this.authenticationError = false;
-                this.activeModal.dismiss('login success');
+                // this.activeModal.dismiss('login success');
+                this.dialogRef.close();
                 if (this.router.url === '/register' || /^\/activate\//.test(this.router.url) || /^\/reset\//.test(this.router.url)) {
                     this.router.navigate(['']);
                 }
@@ -76,12 +105,12 @@ export class JhiLoginModalComponent implements AfterViewInit {
     }
 
     register() {
-        this.activeModal.dismiss('to state register');
-        this.router.navigate(['/register']);
+        // this.activeModal.dismiss('to state register');
+        // this.router.navigate(['/register']);
     }
 
     requestResetPassword() {
-        this.activeModal.dismiss('to state requestReset');
+        // this.activeModal.dismiss('to state requestReset');
         this.router.navigate(['/reset', 'request']);
     }
 }

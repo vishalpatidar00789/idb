@@ -11,6 +11,6 @@ export class BannerComponent implements OnInit {
     ngOnInit() {}
 
     getStarted() {
-        this.router.navigate(['/register']);
+        this.router.navigate(['/search-by-mood']);
     }
 }

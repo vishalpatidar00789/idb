@@ -4,29 +4,9 @@ import { IPhotos } from 'app/shared/model/photos.model';
 import { IProfileSettings } from 'app/shared/model/profile-settings.model';
 
 export interface IFilters {
-    id?: number;
-    screenName?: string;
-    profilePicContentType?: string;
-    profilePic?: any;
-    gender?: string;
-    dob?: string;
-    age?: number;
+    agePref?: number;
     country?: string;
-    state?: string;
     city?: string;
-    pincode?: string;
-    personality?: Personalities;
-    interests?: Interests;
-    offersings?: Offerings;
-    status?: ProfileStatus;
-    createdDate?: Moment;
-    createdBy?: string;
-    lastUpdatedDate?: Moment;
-    lastUpdatedBy?: string;
-    userEmail?: string;
-    userId?: number;
-    pics?: IPhotos[];
-    profileSettings?: IProfileSettings[];
     genderPref?: string;
 }
 
@@ -39,6 +19,7 @@ export class Filters implements IFilters {
         public gender?: string,
         public dob?: string,
         public age?: number,
+        public agePref?: number,
         public country?: string,
         public state?: string,
         public city?: string,
