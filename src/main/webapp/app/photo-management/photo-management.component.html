@@ -1,0 +1,21 @@
+<div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start">
+    <!-- <div class="photo-panel-upload mat-elevation-z10" fxLayout="column" fxLayoutAlign="start stretch">
+        <div class="photo-upload-container" fxLayout="column" fxFlex fxLayoutAlign="center center">
+            <button fxFlex class="photo-upload" mat-icon-button fxLayoutAlign="end end">
+                <mat-icon>add_a_photo</mat-icon>
+            </button>
+            <h2 fxFlex class="mat-title" fxLayoutAlign="start">Add Image</h2>
+        </div>
+    </div> -->
+    <div class="photo-toolbar" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start stretch">
+        <button class="photo-upload-btn" mat-raised-button color="primary" (click)="imageUpload.click()" type="button"
+            fxLayoutAlign="start center" fxLayoutAlign.lt-md="center center">
+            <mat-icon>add_a_photo</mat-icon>
+            Add photos
+        </button>
+        <input #imageUpload hidden type="file" id="fileupload" #imageUpload (change)="imageUploadEvent($event)"
+            accept="image/gif, image/jpeg, image/png" />
+    </div>
+
+    <idb-photo-panel fxFlex></idb-photo-panel>
+</div>

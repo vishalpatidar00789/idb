@@ -1,0 +1,44 @@
+.example-fill-remaining-space {
+    /* This fills the remaining space, by using flexbox.
+       Every toolbar row uses a flexbox row layout. */
+    flex: 1 1 auto;
+}
+
+form.profile-form {
+    margin: 10px;
+    .profile-name {
+        width: 65%;
+    }
+    .section-label {
+        color: rgba(0, 0, 0, 0.54);
+        font-size: 16px;
+        font-weight: bolder;
+    }
+
+    mat-card {
+        mat-card-content {
+            margin: 20px;
+            .chip-list-form {
+                width: 100%;
+                mat-chip-list {
+                    mat-chip {
+                        margin: 10px;
+                        span {
+                            margin-left: 5px;
+                        }
+                    }
+                }
+            }
+            .gender-list-form {
+                width: 100%;
+                mat-chip {
+                    margin: 5px;
+                    width: 115px;
+                    span {
+                        margin-left: 5px;
+                    }
+                }
+            }
+        }
+    }
+}

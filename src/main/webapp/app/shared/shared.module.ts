@@ -9,6 +9,7 @@ import { BannerComponent } from 'app/shared/banner/banner.component';
 import { CarouselModule } from 'ngx-bootstrap';
 import { MatchHolderComponent } from './match-holder/match-holder.component';
 import { SignupComponent } from './signup/signup.component';
+import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
     imports: [IdbSharedLibsModule, IdbSharedCommonModule, JhMaterialModule, NgxGalleryModule, CarouselModule.forRoot()],
@@ -18,10 +19,11 @@ import { SignupComponent } from './signup/signup.component';
         HasAnyAuthorityDirective,
         FiltersComponent,
         BannerComponent,
-        MatchHolderComponent
+        MatchHolderComponent,
+        ConfirmDialogComponent
     ],
     providers: [{ provide: NgbDateAdapter, useClass: NgbDateMomentAdapter }],
-    entryComponents: [JhiLoginModalComponent],
+    entryComponents: [JhiLoginModalComponent, ConfirmDialogComponent],
     exports: [
         IdbSharedCommonModule,
         SignupComponent,

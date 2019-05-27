@@ -1,0 +1,30 @@
+<div class="photo-container" fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="start center">
+    <div class="photo-panel mat-elevation-z10" (click)="openPhotoGallery($event, i)" *ngFor="let photo of photoList; index as i"
+        [ngStyle]="{ 'background-image': 'url(' + photo.image + ')'}" fxLayout="column" fxLayoutAlign="start stretch">
+        <div fxLayout="row">
+            <div fxFlex fxLayoutAlign="start start">
+                <div class="photo-order mat-elevation-z10">
+                    <span>{{photo.orderInProfile}}</span>
+                </div>
+            </div>
+            <span *ngIf="photo.isProfilePicture" class="ribbon">Profile picture</span>
+        </div>
+        <div *ngIf="!photo.isProfilePicture" fxFlex fxLayoutAlign="end end">
+            <button class="photo-settings" id="photoSettings" mat-icon-button [matMenuTriggerFor]="settingsMenu">
+                <mat-icon id="photoSettings">settings_applications</mat-icon>
+            </button>
+            <mat-menu #settingsMenu="matMenu">
+                <button mat-menu-item (click)="setAsProfile(photo);">
+                    <mat-icon>account_circle</mat-icon>
+                    <span>Set As Profile picture</span>
+                </button>
+                <button mat-menu-item (click)="removePhoto(photo);">
+                    <mat-icon>delete_forever</mat-icon>
+                    <span>Remove</span>
+                </button>
+            </mat-menu>
+        </div>
+    </div>
+</div>
+<ngx-gallery #gallery [options]="galleryOptions" [images]="galleryImages">
+</ngx-gallery>

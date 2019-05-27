@@ -50,9 +50,9 @@ export interface IUserProfile {
     state?: string;
     city?: string;
     pincode?: string;
-    personality?: Personalities;
+    personalities?: Personalities;
     interests?: Interests;
-    offersings?: Offerings;
+    offerings?: Offerings;
     status?: ProfileStatus;
     createdDate?: Moment;
     createdBy?: string;
@@ -77,9 +77,9 @@ export class UserProfile implements IUserProfile {
         public state?: string,
         public city?: string,
         public pincode?: string,
-        public personality?: Personalities,
+        public personalities?: Personalities,
         public interests?: Interests,
-        public offersings?: Offerings,
+        public offerings?: Offerings,
         public status?: ProfileStatus,
         public createdDate?: Moment,
         public createdBy?: string,

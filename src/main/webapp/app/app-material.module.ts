@@ -28,10 +28,12 @@ import {
     MatStepperModule,
     MatSidenavModule,
     MatDividerModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatBadgeModule
 } from '@angular/material';
 
 import { MatCarouselModule } from '@ngmodule/material-carousel';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
     imports: [
@@ -65,7 +67,9 @@ import { MatCarouselModule } from '@ngmodule/material-carousel';
         MatStepperModule,
         MatSidenavModule,
         MatDividerModule,
-        MatToolbarModule
+        MatToolbarModule,
+        FlexLayoutModule,
+        MatBadgeModule
     ],
     exports: [
         MatButtonModule,
@@ -98,7 +102,9 @@ import { MatCarouselModule } from '@ngmodule/material-carousel';
         MatStepperModule,
         MatSidenavModule,
         MatDividerModule,
-        MatToolbarModule
+        MatToolbarModule,
+        FlexLayoutModule,
+        MatBadgeModule
     ]
 })
 export class JhMaterialModule {}

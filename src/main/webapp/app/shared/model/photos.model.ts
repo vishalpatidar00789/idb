@@ -4,6 +4,8 @@ export interface IPhotos {
     id?: number;
     imageContentType?: string;
     image?: any;
+    isProfilePicture?: boolean;
+    orderInProfile?: number;
     createdDate?: Moment;
     createdBy?: string;
     lastUpdatedDate?: Moment;
@@ -16,6 +18,8 @@ export class Photos implements IPhotos {
         public id?: number,
         public imageContentType?: string,
         public image?: any,
+        public isProfilePicture?: boolean,
+        public orderInProfile?: number,
         public createdDate?: Moment,
         public createdBy?: string,
         public lastUpdatedDate?: Moment,

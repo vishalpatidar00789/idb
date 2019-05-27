@@ -9,6 +9,7 @@ import {
     settingsRoute,
     paymentRoute,
     preferenceRoute,
+    profileRoute,
     dashboardRoute
 } from './';
 
@@ -21,6 +22,7 @@ const ACCOUNT_ROUTES = [
     settingsRoute,
     paymentRoute,
     preferenceRoute,
+    profileRoute,
     dashboardRoute
 ];
 

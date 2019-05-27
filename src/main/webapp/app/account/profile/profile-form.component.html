@@ -1,0 +1,74 @@
+<form class="profile-form" [formGroup]="profileForm" autocomplete="off" novalidate>
+    <input type="hidden" formControlName="id">
+    <mat-card class="mat-elevation-z4" fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="30px"
+        fxLayoutGap.lt-md="20px">
+        <mat-card-content fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="30px" fxLayoutGap.lt-md="10px"
+            fxLayoutAlign="start" fxLayoutAlign.lt-md="start stretch">
+            <div fxFlex fxLayout="column" fxLayoutGap="30px" fxLayoutAlign="start" fxLayoutAlign.lt-md="start stretch">
+                <mat-form-field class="profile-name">
+                    <input formControlName="screenName" matInput #screenName placeholder="Profile Name">
+                    <mat-error *ngIf="profileForm.get('screenName').hasError('required')">Enter your profile
+                        name
+                    </mat-error>
+                </mat-form-field>
+                <span class="section-label">I am</span>
+                <mat-chip-list [multiple]="false" formControlName="gender" class="gender-list-form">
+                    <mat-chip #genderChip="matChip" *ngFor="let gender of genders" [color]="gender.color"
+                        [value]="gender.value" [selectable]="true" (click)="selectGender(genderChip, gender)">
+                        <mat-icon [svgIcon]="gender.icon"></mat-icon>
+                        <span>{{gender.value}}</span>
+                    </mat-chip>
+                </mat-chip-list>
+                <mat-form-field>
+                    <input formControlName="dob" matInput [matDatepicker]="dobPicker" placeholder="Birthday">
+                    <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #dobPicker></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-select placeholder="Select Your City" formControlName="city">
+                        <mat-option *ngFor="let city of cities" [value]="city">
+                            {{city}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div fxFlex fxLayout="column" fxLayoutGap="30px" fxLayoutAlign="start" fxLayoutAlign.lt-md="start stretch">
+                <mat-form-field fxFlex appearance="outline" class="chip-list-form">
+                    <mat-label>Personality</mat-label>
+                    <mat-chip-list [multiple]="true" formControlName="personalities">
+                        <mat-chip #personalityChip="matChip" *ngFor="let personality of personalities"
+                            [selectable]="true" color="primary"
+                            (click)="selectPersonality(personalityChip, personality)">
+                            <mat-icon svgIcon="personality"></mat-icon>
+                            <span>{{personality| titlecase}}</span>
+                        </mat-chip>
+                </mat-form-field>
+                <mat-form-field fxFlex appearance="outline" class="chip-list-form">
+                    <mat-label>Interests</mat-label>
+                    <mat-chip-list [multiple]="true" formControlName="interests">
+                        <mat-chip #interestChip="matChip" *ngFor="let interest of interests" [selectable]="true"
+                            color="primary" (click)="selectInterest(interestChip, interest)">
+                            <mat-icon svgIcon="interest"></mat-icon>
+                            <span>{{interest| titlecase}}</span>
+                        </mat-chip>
+                </mat-form-field>
+                <mat-form-field multiple fxFlex appearance="outline" class="chip-list-form">
+                    <mat-label>Offerings</mat-label>
+                    <mat-chip-list [multiple]="true" formControlName="offerings">
+                        <mat-chip #offeringChip="matChip" *ngFor="let offering of offerings" [selectable]="true"
+                            color="primary" (click)="selectOffering(offeringChip, offering)">
+                            <!-- <mat-icon>supervised_user_circle</mat-icon> -->
+                            <mat-icon svgIcon="offerings"></mat-icon>
+                            <span>{{offering| titlecase}}</span>
+                        </mat-chip>
+                </mat-form-field>
+            </div>
+        </mat-card-content>
+        <div fxFlex fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center center">
+            <button mat-raised-button color="primary" type="submit" [disabled]="profileForm.invalid">Save</button>
+            <button mat-raised-button color="primary">View</button>
+        </div>
+
+    </mat-card>
+</form>

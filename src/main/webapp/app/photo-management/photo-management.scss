@@ -1,0 +1,127 @@
+.photo-container {
+    margin: 10px;
+    min-height: 100px;
+    .photo-panel {
+        margin-bottom: 20px;
+        width: 250px;
+        height: 350px;
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+        overflow: hidden;
+        transition: all 0.2s ease-in-out;
+        &:hover {
+            transform: scale(1.1);
+            cursor: pointer;
+        }
+        .mat-icon {
+            font-size: 24px;
+            background: #fff;
+        }
+        .photo-settings {
+            margin: 5px;
+        }
+        .photo-order {
+            margin: 5px;
+            border-radius: 50%;
+            background: rebeccapurple;
+            border: 2px solid #fff;
+            text-align: center;
+            span {
+                margin: 10px;
+                color: #fff;
+                font-size: 15px;
+                font-weight: bold;
+            }
+        }
+        .ribbon {
+            background: rebeccapurple;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            width: 90px;
+            height: 22px;
+            margin: 5px;
+            transform: translateX(30%) translateY(0%) rotate(45deg);
+            transform-origin: top left;
+            &:before,
+            &:after {
+                content: '';
+                position: absolute;
+                top: 0;
+                margin: 0 -1px; /* tweak */
+                width: 100%;
+                height: 100%;
+                background: rebeccapurple;
+            }
+            &:before {
+                right: 100%;
+            }
+
+            &:after {
+                left: 100%;
+            }
+        }
+    }
+}
+.photo-toolbar {
+    margin: 10px;
+    .photo-upload-btn {
+        border-radius: 10px;
+        text-transform: uppercase;
+        background-color: rebeccapurple;
+        mat-icon {
+            margin: 5px;
+        }
+    }
+}
+
+::ng-deep .mat-menu-content {
+    padding: 0px !important;
+}
+
+.mat-menu-item:hover {
+    background-color: rebeccapurple;
+    color: #fff;
+}
+.mat-menu-item:hover .mat-icon {
+    color: #fff;
+}
+
+.mat-menu-item {
+    .mat-icon {
+        font-size: 35px;
+    }
+    span {
+        margin: 10px;
+        font-size: 15px;
+        font-weight: bold;
+    }
+}
+
+// .photo-panel-upload {
+//   margin-bottom: 30px;
+//   width: 250px;
+//   height: 350px;
+//   background-color: #e0e4e9;
+//   border-top-right-radius: 10px;
+//   border-top-left-radius: 10px;
+//   border-bottom-right-radius: 5px;
+//   border-bottom-left-radius: 5px;
+//   .photo-upload-container {
+//     margin: 20px;
+//     border: 5px solid black;
+//     border-style: dashed;
+//     .photo-upload {
+//       margin-right: 80px;
+//       margin-top: 80px;
+//       .mat-icon {
+//         font-size: 100px;
+//       }
+//     }
+//   }
+// }
