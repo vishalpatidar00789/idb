@@ -1,7 +1,8 @@
 import { OnInit, Component, ChangeDetectorRef } from '@angular/core';
-import { AccountService, Preferences } from 'app/core';
+import { AccountService } from 'app/core';
 import { Router } from '@angular/router';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { Preferences } from 'app/shared/model/preferences.model';
 
 @Component({
     selector: 'jhi-dashboard',

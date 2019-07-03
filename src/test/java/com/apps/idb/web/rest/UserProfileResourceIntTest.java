@@ -61,8 +61,8 @@ public class UserProfileResourceIntTest {
     private static final String DEFAULT_GENDER = "AAAAAAAAAA";
     private static final String UPDATED_GENDER = "BBBBBBBBBB";
 
-    private static final String DEFAULT_DOB = "AAAAAAAAAA";
-    private static final String UPDATED_DOB = "BBBBBBBBBB";
+    private static final LocalDate DEFAULT_DOB = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_DOB = LocalDate.now(ZoneId.systemDefault());
 
     private static final Integer DEFAULT_AGE = 1;
     private static final Integer UPDATED_AGE = 2;
@@ -377,7 +377,7 @@ public class UserProfileResourceIntTest {
             .andExpect(jsonPath("$.[*].lastUpdatedDate").value(hasItem(DEFAULT_LAST_UPDATED_DATE.toString())))
             .andExpect(jsonPath("$.[*].lastUpdatedBy").value(hasItem(DEFAULT_LAST_UPDATED_BY.toString())));
     }
-    
+
     @Test
     @Transactional
     public void getUserProfile() throws Exception {

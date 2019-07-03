@@ -4,13 +4,17 @@
 put Sass variables here:
 eg $input-color: red;
 ****************************/
+
+// Import idb material theme
+@import './idb-theme.scss';
+
 // Override Boostrap variables
 @import 'bootstrap-variables';
 // Import Bootstrap source files from node_modules
 @import '~bootstrap/scss/bootstrap';
 
 /* jhipster-needle-scss-add-vendor JHipster will add new css style */
-@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+// @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 // @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 //Importing font awesome css for carousel icons like arrows, cross etc.
@@ -22,6 +26,21 @@ button:active:focus,
 button.active:focus {
     outline: none !important;
     outline-style: none !important;
+}
+
+// Avoid ngx-gallery preview with side menu bar
+::ng-deep .mat-sidenav-container,
+.mat-sidenav-content,
+.mat-tab-body-content {
+    transform: none !important;
+}
+
+.spacer {
+    /* This fills the remaining space, by using flexbox.
+         Every toolbar row uses a flexbox row layout. */
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
 }
 
 /* for dialog pop-up */

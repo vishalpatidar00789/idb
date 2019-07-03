@@ -7,7 +7,8 @@ import { take, map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { DATE_FORMAT } from 'app/shared/constants/input.constants';
 import { UserProfileService } from 'app/entities/user-profile/user-profile.service';
-import { IUserProfile, UserProfile, Personalities, Interests, Offerings, ProfileStatus } from 'app/shared/model/user-profile.model';
+import { IUserProfile, UserProfile } from 'app/shared/model/user-profile.model';
+import { Personalities, ProfileStatus, Interests, Offerings } from 'app/shared/model/preferences.model';
 
 describe('Service Tests', () => {
     describe('UserProfile Service', () => {
@@ -31,15 +32,18 @@ describe('Service Tests', () => {
                 'image/png',
                 'AAAAAAA',
                 'AAAAAAA',
-                'AAAAAAA',
+                currentDate,
                 0,
                 'AAAAAAA',
                 'AAAAAAA',
                 'AAAAAAA',
                 'AAAAAAA',
-                Personalities.Introvert,
-                Interests.Travelling,
-                Offerings.BlindDate,
+                [Personalities.Introvert],
+                [Interests.Travelling],
+                [Offerings.BlindDate],
+                [],
+                [],
+                [],
                 ProfileStatus.Dating,
                 currentDate,
                 'AAAAAAA',
@@ -96,7 +100,7 @@ describe('Service Tests', () => {
                         screenName: 'BBBBBB',
                         profilePic: 'BBBBBB',
                         gender: 'BBBBBB',
-                        dob: 'BBBBBB',
+                        dob: currentDate.format(DATE_FORMAT),
                         age: 1,
                         country: 'BBBBBB',
                         state: 'BBBBBB',
@@ -135,7 +139,7 @@ describe('Service Tests', () => {
                         screenName: 'BBBBBB',
                         profilePic: 'BBBBBB',
                         gender: 'BBBBBB',
-                        dob: 'BBBBBB',
+                        dob: currentDate.format(DATE_FORMAT),
                         age: 1,
                         country: 'BBBBBB',
                         state: 'BBBBBB',

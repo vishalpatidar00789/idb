@@ -19,7 +19,7 @@
         },
         {
             "fieldName": "dob",
-            "fieldType": "String"
+            "fieldType": "LocalDate"
         },
         {
             "fieldName": "age",

@@ -1,10 +1,17 @@
-<div *ngIf="listMatches" class="col-md-12">
-        
+<!-- <div *ngIf="listMatches" class="col-md-12">
+
     <div class="row">
         <div *ngFor="let match of listMatches" class="col-md-6">
 
-            <jhi-match-holder [match]="match"></jhi-match-holder>
+
 
         </div>
+    </div>
+</div> -->
+
+<div fxLayout="column" fxLayoutAlign="start" fxLayoutGap="30px" fxLayoutGap.lt-md="20px">
+    <div fxLayout="row wrap" fxLayoutAlign="start" fxLayoutGap="30px"
+        fxLayoutGap.lt-md="20px">
+        <idb-match-holder *ngFor="let match of listMatches" [match]="match"></idb-match-holder>
     </div>
 </div>

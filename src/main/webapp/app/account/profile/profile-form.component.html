@@ -1,74 +1,174 @@
-<form class="profile-form" [formGroup]="profileForm" autocomplete="off" novalidate>
+<form class="profile-form" [formGroup]="profileForm" (ngSubmit)="onSubmit()" autocomplete="off" novalidate>
     <input type="hidden" formControlName="id">
     <mat-card class="mat-elevation-z4" fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="30px"
         fxLayoutGap.lt-md="20px">
         <mat-card-content fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="30px" fxLayoutGap.lt-md="10px"
             fxLayoutAlign="start" fxLayoutAlign.lt-md="start stretch">
-            <div fxFlex fxLayout="column" fxLayoutGap="30px" fxLayoutAlign="start" fxLayoutAlign.lt-md="start stretch">
-                <mat-form-field class="profile-name">
-                    <input formControlName="screenName" matInput #screenName placeholder="Profile Name">
-                    <mat-error *ngIf="profileForm.get('screenName').hasError('required')">Enter your profile
-                        name
-                    </mat-error>
-                </mat-form-field>
-                <span class="section-label">I am</span>
-                <mat-chip-list [multiple]="false" formControlName="gender" class="gender-list-form">
-                    <mat-chip #genderChip="matChip" *ngFor="let gender of genders" [color]="gender.color"
-                        [value]="gender.value" [selectable]="true" (click)="selectGender(genderChip, gender)">
-                        <mat-icon [svgIcon]="gender.icon"></mat-icon>
-                        <span>{{gender.value}}</span>
-                    </mat-chip>
-                </mat-chip-list>
-                <mat-form-field>
-                    <input formControlName="dob" matInput [matDatepicker]="dobPicker" placeholder="Birthday">
-                    <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
-                    <mat-datepicker #dobPicker></mat-datepicker>
-                </mat-form-field>
+            <div fxFlex fxLayout="column" fxLayoutGap="60px" fxLayoutGap.lt-md="30px" fxLayoutAlign="start"
+                fxLayoutAlign.lt-md="start stretch">
+                <div fxLayout="column" fxLayoutGap="30px">
+                    <span class="section-label">Status</span>
+                    <mat-chip-list [multiple]="false" formControlName="status" class="status-list-form">
+                        <mat-chip #statusChip="matChip" class="mat-elevation-z5" *ngFor="let status of statusList"
+                            [color]="status.color" [value]="status.id" [selectable]="true"
+                            (click)="selectStatus(statusChip, status)">
+                            <mat-icon *ngIf="status.isSvg" [svgIcon]="status.icon"></mat-icon>
+                            <mat-icon *ngIf="!status.isSvg">{{status.icon}}</mat-icon>
+                            <span>{{status.value}}</span>
+                        </mat-chip>
+                    </mat-chip-list>
+                    <mat-error *ngIf="profileForm.get('status').hasError('required')">Select current status</mat-error>
+                </div>
+                <div fxLayout="row">
+                    <mat-form-field fxFlex=80 fxFlex.lt-md=100>
+                        <input formControlName="screenName" matInput #screenName placeholder="Screen Name">
+                        <mat-error *ngIf="profileForm.get('screenName').hasError('required')">Enter your screen
+                            name
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="column" fxLayoutGap="30px">
+                    <span class="section-label">I am</span>
+                    <mat-chip-list [multiple]="false" formControlName="gender" class="gender-list-form">
+                        <mat-chip #genderChip="matChip" class="mat-elevation-z5" *ngFor="let gender of genders"
+                            [color]="gender.color" [value]="gender.id" [selectable]="true"
+                            (click)="selectGender(genderChip, gender)">
+                            <mat-icon [svgIcon]="gender.icon"></mat-icon>
+                            <span>{{gender.value}}</span>
+                        </mat-chip>
+                    </mat-chip-list>
+                </div>
 
-                <mat-form-field>
-                    <mat-select placeholder="Select Your City" formControlName="city">
-                        <mat-option *ngFor="let city of cities" [value]="city">
-                            {{city}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
+                <div fxLayout="column">
+                    <span class="section-label">Birthday</span>
+                    <div fxLayout="row">
+                        <mat-form-field fxFlex=35 appearance="standard" (click)="dobPicker.open()">
+                            <input formControlName="dob" matInput [matDatepicker]="dobPicker" [max]="maxDate"
+                                placeholder="Choose Date">
+                            <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
+                            <mat-datepicker touchUi #dobPicker color="primary" disabled="false"></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxLayout="row">
+                    <!-- <mat-form-field fxFlex=60 fxFlex.lt-md=80>
+                        <mat-select placeholder="Select Your City" formControlName="city">
+                            <mat-option *ngFor="let city of cities" [value]="city">
+                                {{city}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field> -->
+                    <mat-form-field fxFlex=60 fxFlex.lt-md=80>
+                        <mat-select formControlName="city" placeholder="Select Your City" #citySelect>
+                            <mat-option>
+                                <ngx-mat-select-search [placeholderLabel]="'Search city'"
+                                    [noEntriesFoundLabel]="'No matching city found'" [formControl]="cityFilterCtrl">
+                                </ngx-mat-select-search>
+                            </mat-option>
+
+                            <mat-option *ngFor="let city of filteredCities | async" [value]="city.id">
+                                {{city.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
             </div>
             <div fxFlex fxLayout="column" fxLayoutGap="30px" fxLayoutAlign="start" fxLayoutAlign.lt-md="start stretch">
-                <mat-form-field fxFlex appearance="outline" class="chip-list-form">
+                <mat-form-field #personalityFormField fxFlex appearance="outline" class="chip-list-form">
                     <mat-label>Personality</mat-label>
-                    <mat-chip-list [multiple]="true" formControlName="personalities">
-                        <mat-chip #personalityChip="matChip" *ngFor="let personality of personalities"
-                            [selectable]="true" color="primary"
-                            (click)="selectPersonality(personalityChip, personality)">
+                    <mat-chip-list #personalityChipList [multiple]="true" formControlName="personalities">
+                        <mat-chip #personalityChip="matChip" class="mat-elevation-z5"
+                            *ngFor="let personality of personalityList;" [selectable]="personality.isDefault"
+                            color="primary" (click)="selectPersonality(personalityChip, personality)"
+                            [value]="personality.name" [removable]="!personality.isDefault"
+                            (removed)="removePersonality(personality)">
                             <mat-icon svgIcon="personality"></mat-icon>
-                            <span>{{personality| titlecase}}</span>
+                            <span>{{personality.name}}</span>
+                            <mat-icon matChipRemove *ngIf="!personality.isDefault">cancel</mat-icon>
                         </mat-chip>
+                    </mat-chip-list>
+                    <div *ngIf="!personalityChipList.errorState" fxLayout="row" class="add-chip-section">
+                        <input *ngIf="showAddPersonality" autofocus matInput placeholder="Add personality"
+                            [matChipInputFor]="personalityChipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                            matChipInputAddOnBlur="true" (matChipInputTokenEnd)="addPersonality($event)" />
+                        <div class="spacer"></div>
+                        <button color="primary" *ngIf="!showAddPersonality" fxLayoutAlign="center" mat-icon-button
+                            (click)="showAddPersonality=true">
+                            <mat-icon>add_box</mat-icon>
+                        </button>
+                        <button color="primary" *ngIf="showAddPersonality" fxLayoutAlign="center" mat-icon-button
+                            (click)="showAddPersonality=false">
+                            <mat-icon>indeterminate_check_box</mat-icon>
+                        </button>
+                    </div>
+                    <mat-error>Can only contain 10 personality tag maximum</mat-error>
+                    <mat-hint align="end">Choose persoanlity</mat-hint>
                 </mat-form-field>
                 <mat-form-field fxFlex appearance="outline" class="chip-list-form">
                     <mat-label>Interests</mat-label>
-                    <mat-chip-list [multiple]="true" formControlName="interests">
-                        <mat-chip #interestChip="matChip" *ngFor="let interest of interests" [selectable]="true"
-                            color="primary" (click)="selectInterest(interestChip, interest)">
+                    <mat-chip-list #interestChipList [multiple]="true" formControlName="interests">
+                        <mat-chip #interestChip="matChip" class="mat-elevation-z5"
+                            *ngFor="let interest of interestList;" [selectable]="interest.isDefault" color="primary"
+                            (click)="selectInterest(interestChip, interest)" [value]="interest.name"
+                            [removable]="!interest.isDefault" (removed)="removeInterest(interest)">
                             <mat-icon svgIcon="interest"></mat-icon>
-                            <span>{{interest| titlecase}}</span>
+                            <span>{{interest.name}}</span>
+                            <mat-icon matChipRemove *ngIf="!interest.isDefault">cancel</mat-icon>
                         </mat-chip>
+                    </mat-chip-list>
+                    <div *ngIf="!interestChipList.errorState" fxLayout="row" class="add-chip-section">
+                        <input *ngIf="showAddInterest" autofocus matInput placeholder="Add interest"
+                            [matChipInputFor]="interestChipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                            matChipInputAddOnBlur="true" (matChipInputTokenEnd)="addInterest($event)" />
+                        <div class="spacer"></div>
+                        <button color="primary" *ngIf="!showAddInterest" fxLayoutAlign="center" mat-icon-button
+                            (click)="showAddInterest=true">
+                            <mat-icon>add_box</mat-icon>
+                        </button>
+                        <button color="primary" *ngIf="showAddInterest" fxLayoutAlign="center" mat-icon-button
+                            (click)="showAddInterest=false">
+                            <mat-icon>indeterminate_check_box</mat-icon>
+                        </button>
+                    </div>
+                    <mat-error>Can only contain 10 interest tag maximum</mat-error>
+                    <mat-hint align="end">Choose interest</mat-hint>
                 </mat-form-field>
                 <mat-form-field multiple fxFlex appearance="outline" class="chip-list-form">
                     <mat-label>Offerings</mat-label>
-                    <mat-chip-list [multiple]="true" formControlName="offerings">
-                        <mat-chip #offeringChip="matChip" *ngFor="let offering of offerings" [selectable]="true"
-                            color="primary" (click)="selectOffering(offeringChip, offering)">
-                            <!-- <mat-icon>supervised_user_circle</mat-icon> -->
-                            <mat-icon svgIcon="offerings"></mat-icon>
-                            <span>{{offering| titlecase}}</span>
+                    <mat-chip-list #offeringChipList [multiple]="true" formControlName="offerings">
+                        <mat-chip #offeringChip="matChip" class="mat-elevation-z5"
+                            *ngFor="let offering of offeringList;" [selectable]="offering.isDefault" color="primary"
+                            (click)="selectOffering(offeringChip, offering)" [value]="offering.name"
+                            [removable]="!offering.isDefault" (removed)="removeOffering(offering)">
+                            <mat-icon svgIcon="offering"></mat-icon>
+                            <span>{{offering.name}}</span>
+                            <mat-icon matChipRemove *ngIf="!offering.isDefault">cancel</mat-icon>
                         </mat-chip>
+                    </mat-chip-list>
+                    <div *ngIf="!offeringChipList.errorState" fxLayout="row" class="add-chip-section">
+                        <input *ngIf="showAddOffering" autofocus matInput placeholder="Add offering"
+                            [matChipInputFor]="offeringChipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                            matChipInputAddOnBlur="true" (matChipInputTokenEnd)="addOffering($event)" />
+                        <div class="spacer"></div>
+                        <button color="primary" *ngIf="!showAddOffering" fxLayoutAlign="center" mat-icon-button
+                            (click)="showAddOffering=true">
+                            <mat-icon>add_box</mat-icon>
+                        </button>
+                        <button color="primary" *ngIf="showAddOffering" fxLayoutAlign="center" mat-icon-button
+                            (click)="showAddOffering=false">
+                            <mat-icon>indeterminate_check_box</mat-icon>
+                        </button>
+                    </div>
+                    <mat-error>Can only contain 10 offering tag maximum</mat-error>
+                    <mat-hint align="end">Choose offering</mat-hint>
                 </mat-form-field>
             </div>
         </mat-card-content>
-        <div fxFlex fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center center">
-            <button mat-raised-button color="primary" type="submit" [disabled]="profileForm.invalid">Save</button>
+        <div fxFlex fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="start center">
+            <button mat-raised-button color="primary" type="submit"
+                [disabled]="profileForm.invalid || personalityChipList.errorState || interestChipList.errorState || offeringChipList.errorState">Save</button>
             <button mat-raised-button color="primary">View</button>
         </div>
-
     </mat-card>
 </form>
+<!-- <pre><code>{{ profileForm.value | json }}</code></pre> -->

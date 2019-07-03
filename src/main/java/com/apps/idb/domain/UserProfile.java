@@ -31,7 +31,7 @@ import com.apps.idb.domain.enumeration.ProfileStatus;
 public class UserProfile implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -51,7 +51,7 @@ public class UserProfile implements Serializable {
     private String gender;
 
     @Column(name = "dob")
-    private String dob;
+    private LocalDate dob;
 
     @NotNull
     @Column(name = "age", nullable = false)
@@ -172,16 +172,16 @@ public class UserProfile implements Serializable {
         this.gender = gender;
     }
 
-    public String getDob() {
+    public LocalDate getDob() {
         return dob;
     }
 
-    public UserProfile dob(String dob) {
+    public UserProfile dob(LocalDate dob) {
         this.dob = dob;
         return this;
     }
 
-    public void setDob(String dob) {
+    public void setDob(LocalDate dob) {
         this.dob = dob;
     }
 

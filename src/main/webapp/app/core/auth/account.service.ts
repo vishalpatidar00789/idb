@@ -4,7 +4,7 @@ import { Observable, Subject } from 'rxjs';
 
 import { SERVER_API_URL } from 'app/app.constants';
 import { Account } from 'app/core/user/account.model';
-import { Preferences } from '../user/preferences.model';
+import { Preferences } from 'app/shared/model/preferences.model';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {

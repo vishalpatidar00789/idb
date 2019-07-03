@@ -64,6 +64,10 @@ export class PhotoPanelComponent implements OnInit {
         });
     }
 
+    setAsPrivate(photo: IPhotos) {
+        photo.isPrivatePicture = !photo.isPrivatePicture;
+    }
+
     removePhoto(photo: IPhotos) {
         this.confirmDialogModalService
             .openConfirmDialog('Are you sure to delete this photo ?')

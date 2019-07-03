@@ -42,6 +42,7 @@ export class PhotoService {
                 image: `../../content/images/profile-image/profile_${i}.jpg`,
                 isProfilePicture: i === 1 ? true : false,
                 orderInProfile: i,
+                isPrivatePicture: false,
                 createdDate: moment(),
                 createdBy: 'Admin',
                 userProfileId: 123

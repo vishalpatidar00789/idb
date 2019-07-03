@@ -25,7 +25,7 @@ public class UserProfileDTO implements Serializable {
     @NotNull
     private String gender;
 
-    private String dob;
+    private LocalDate dob;
 
     @NotNull
     private Integer age;
@@ -103,11 +103,11 @@ public class UserProfileDTO implements Serializable {
         this.gender = gender;
     }
 
-    public String getDob() {
+    public LocalDate getDob() {
         return dob;
     }
 
-    public void setDob(String dob) {
+    public void setDob(LocalDate dob) {
         this.dob = dob;
     }
 

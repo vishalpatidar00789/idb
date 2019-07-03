@@ -6,6 +6,7 @@ export interface IPhotos {
     image?: any;
     isProfilePicture?: boolean;
     orderInProfile?: number;
+    isPrivatePicture?: boolean;
     createdDate?: Moment;
     createdBy?: string;
     lastUpdatedDate?: Moment;
@@ -20,6 +21,7 @@ export class Photos implements IPhotos {
         public image?: any,
         public isProfilePicture?: boolean,
         public orderInProfile?: number,
+        public isPrivatePicture?: boolean,
         public createdDate?: Moment,
         public createdBy?: string,
         public lastUpdatedDate?: Moment,

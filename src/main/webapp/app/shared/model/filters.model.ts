@@ -1,7 +1,7 @@
-import { Personalities, Interests, Offerings, ProfileStatus } from 'app/shared/model/user-profile.model';
 import { Moment } from 'moment';
 import { IPhotos } from 'app/shared/model/photos.model';
 import { IProfileSettings } from 'app/shared/model/profile-settings.model';
+import { ProfileStatus, Personalities, Interests, Offerings } from './preferences.model';
 
 export interface IFilters {
     agePref?: number;

@@ -34,6 +34,8 @@ import {
 
 import { MatCarouselModule } from '@ngmodule/material-carousel';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 @NgModule({
     imports: [
@@ -69,7 +71,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         MatDividerModule,
         MatToolbarModule,
         FlexLayoutModule,
-        MatBadgeModule
+        MatBadgeModule,
+        NgxMatSelectSearchModule,
+        MatMomentDateModule
     ],
     exports: [
         MatButtonModule,
@@ -104,7 +108,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         MatDividerModule,
         MatToolbarModule,
         FlexLayoutModule,
-        MatBadgeModule
+        MatBadgeModule,
+        NgxMatSelectSearchModule,
+        MatMomentDateModule
     ]
 })
 export class JhMaterialModule {}

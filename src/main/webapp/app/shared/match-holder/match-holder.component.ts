@@ -5,9 +5,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { PaymentComponent } from 'app/account/payment/payment.component';
 
 @Component({
-    selector: 'jhi-match-holder',
-    templateUrl: './match-holder.html',
-    styleUrls: ['match-holder.scss']
+    selector: 'idb-match-holder',
+    templateUrl: './match-holder.component.html',
+    styleUrls: ['./match-holder.component.scss']
 })
 export class MatchHolderComponent implements OnInit {
     account: Account;
@@ -20,7 +20,7 @@ export class MatchHolderComponent implements OnInit {
             this.addSlide();
         }
 
-        iconRegistry.addSvgIcon('more_vert', sanitizer.bypassSecurityTrustResourceUrl('../../content/images/more_vert.svg'));
+        // iconRegistry.addSvgIcon('more_vert', sanitizer.bypassSecurityTrustResourceUrl('../../content/images/more_vert.svg'));
     }
 
     ngOnInit() {}

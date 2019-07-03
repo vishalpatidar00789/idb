@@ -47,7 +47,7 @@
             <column name="created_date" type="timestamp"/>
             <column name="last_logout" type="timestamp"/>
              <column name="last_activated_date" type="timestamp"/>
-            
+
             <column name="reset_date" type="timestamp">
                 <constraints nullable="true"/>
             </column>
@@ -160,8 +160,8 @@
             <column name="local_date" type="date"/>
         </createTable>
     </changeSet>
-    
-    
+
+
     <!--
         Added the entity UserProfile.
     -->
@@ -185,7 +185,7 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="dob" type="varchar(255)">
+            <column name="dob" type="date">
                 <constraints nullable="true" />
             </column>
 
@@ -245,10 +245,10 @@
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-        
+
     </changeSet>
     <changeSet id="20190210202053-2" author="jhipster">
-        
+
         <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="user_profile"
                                  constraintName="fk_user_profile_user_id"
@@ -294,13 +294,13 @@
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-        
+
     </changeSet>
     <!--
         Added the constraints for entity ProfileSettings.
     -->
     <changeSet id="20190210202054-2" author="jhipster">
-        
+
         <addForeignKeyConstraint baseColumnNames="user_profile_id"
                                  baseTableName="profile_settings"
                                  constraintName="fk_profile_settings_user_profile_id"
@@ -345,13 +345,13 @@
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-        
+
     </changeSet>
      <!--
         Added the constraints for entity Photos.
     -->
     <changeSet id="20190210202055-2" author="jhipster">
-        
+
         <addForeignKeyConstraint baseColumnNames="user_profile_id"
                                  baseTableName="photos"
                                  constraintName="fk_photos_user_profile_id"
@@ -359,7 +359,7 @@
                                  referencedTableName="user_profile"/>
 
     </changeSet>
-    
+
      <!--
         Added the entity UserAccount.
     -->
@@ -418,7 +418,7 @@
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-        
+
     </changeSet>
      <!--
         Added the entity Packages.
@@ -474,10 +474,10 @@
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-        
+
     </changeSet>
       <changeSet id="20190210202056-2" author="jhipster">
-        
+
         <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="user_account"
                                  constraintName="fk_user_account_user_id"
@@ -491,7 +491,7 @@
                                  referencedTableName="packages"/>
 
     </changeSet>
-    
+
      <!--
         Added the entity Chapters.
     -->
@@ -534,13 +534,13 @@
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-        
+
     </changeSet>
     <!--
         Added the constraints for entity Chapters.
     -->
     <changeSet id="20190210202058-2" author="jhipster">
-        
+
         <addForeignKeyConstraint baseColumnNames="initiator_id"
                                  baseTableName="chapters"
                                  constraintName="fk_chapters_initiator_id"
@@ -612,10 +612,10 @@
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-        
+
     </changeSet>
      <changeSet id="20190210202059-2" author="jhipster">
-        
+
         <addForeignKeyConstraint baseColumnNames="user_account_id"
                                  baseTableName="payments"
                                  constraintName="fk_payments_user_account_id"

@@ -1,0 +1,62 @@
+<mat-card class="match-card">
+    <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>{{match.screenName}}, {{match.age}}</mat-card-title>
+        <mat-card-subtitle>Do what you love :-)</mat-card-subtitle>
+        <div style="position: absolute; right: 0%">
+
+
+            <button mat-icon-button [matMenuTriggerFor]="headerMenu">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #headerMenu="matMenu">
+                <button mat-menu-item>
+                    <mat-icon>account_circle</mat-icon>
+                    <span>Report Scam</span>
+                </button>
+                <button mat-menu-item>
+                    <mat-icon>delete_forever</mat-icon>
+                    <span>Block User</span>
+                </button>
+            </mat-menu>
+
+        </div>
+    </mat-card-header>
+    <mat-card-content>
+        <carousel [noPause]="pause" [interval]="false" [(activeSlide)]="activeSlideIndex" [showIndicators]="false"
+            style="max-height: 570px; width: 100%;">
+            <slide *ngFor="let slide of slides; let index=index" style="max-height: 300px; width: 100%;">
+                <img [src]="slide.image" alt="image slide" style="display: block; max-height: 300px; width: 100%;">
+            </slide>
+        </carousel>
+        <mat-tab-group>
+            <mat-tab label="I am">
+                <div style="padding: 10px">
+                    <mat-chip-list selectable="false">
+                        <mat-chip color="primary" selected disableRipple="true" selectable="false">Romantic</mat-chip>
+                        <mat-chip color="primary" selected>Loving</mat-chip>
+                        <mat-chip color="primary" selected>Caring</mat-chip>
+                        <mat-chip color="primary" selected>Thinker</mat-chip>
+                        <mat-chip color="primary">Stylish</mat-chip>
+                    </mat-chip-list>
+                </div>
+            </mat-tab>
+            <mat-tab label="Interested in">
+                <div style="padding: 10px">
+                    <mat-chip-list selectable="false">
+                        <mat-chip color="primary" selected disableRipple="true" selectable="false">Drinking</mat-chip>
+                        <mat-chip color="primary" selected>Travelling</mat-chip>
+                        <mat-chip color="accent" selected>Blind Dating</mat-chip>
+                        <mat-chip color="primary" selected>Dating</mat-chip>
+                        <mat-chip color="primary">Hookups</mat-chip>
+                    </mat-chip-list>
+                </div>
+            </mat-tab>
+            <mat-tab label="More"> Content 3 </mat-tab>
+        </mat-tab-group>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button id="search" color="primary" style="width: 100%" (click)="requestDate(match)">REQUEST
+            DATE</button>
+    </mat-card-actions>
+</mat-card>

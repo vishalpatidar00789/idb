@@ -1,42 +1,7 @@
 import { Moment } from 'moment';
 import { IPhotos } from 'app/shared/model/photos.model';
 import { IProfileSettings } from 'app/shared/model/profile-settings.model';
-
-export const enum Personalities {
-    Introvert = 'Introvert',
-    Extrovert = 'Extrovert',
-    Thinker = 'Thinker',
-    Romantic = 'Romantic',
-    Observer = 'Observer',
-    Cool = 'Cool',
-    Helping = 'Helping'
-}
-
-export const enum Interests {
-    Travelling = 'Travelling',
-    Reading = 'Reading',
-    Parties = 'Parties',
-    Movies = 'Movies',
-    Music = 'Music',
-    Sports = 'Sports',
-    Fitness = 'Fitness'
-}
-
-export const enum Offerings {
-    BlindDate = 'BlindDate',
-    ShortDate = 'ShortDate',
-    Hookups = 'Hookups',
-    CasualRelationships = 'CasualRelationships',
-    Chat = 'Chat',
-    VideoChat = 'VideoChat'
-}
-
-export const enum ProfileStatus {
-    Dating = 'Dating',
-    Waiting = 'Waiting',
-    BlindDate = 'BlindDate',
-    Offline = 'Offline'
-}
+import { ProfileStatus, Personalities, Interests, Offerings } from './preferences.model';
 
 export interface IUserProfile {
     id?: number;
@@ -44,15 +9,18 @@ export interface IUserProfile {
     profilePicContentType?: string;
     profilePic?: any;
     gender?: string;
-    dob?: string;
+    dob?: Moment;
     age?: number;
     country?: string;
     state?: string;
     city?: string;
     pincode?: string;
-    personalities?: Personalities;
-    interests?: Interests;
-    offerings?: Offerings;
+    personalities?: Personalities[];
+    interests?: Interests[];
+    offerings?: Offerings[];
+    personalityOthers?: string[];
+    interestOthers?: string[];
+    offeringOthers?: string[];
     status?: ProfileStatus;
     createdDate?: Moment;
     createdBy?: string;
@@ -71,15 +39,18 @@ export class UserProfile implements IUserProfile {
         public profilePicContentType?: string,
         public profilePic?: any,
         public gender?: string,
-        public dob?: string,
+        public dob?: Moment,
         public age?: number,
         public country?: string,
         public state?: string,
         public city?: string,
         public pincode?: string,
-        public personalities?: Personalities,
-        public interests?: Interests,
-        public offerings?: Offerings,
+        public personalities?: Personalities[],
+        public interests?: Interests[],
+        public offerings?: Offerings[],
+        public personalityOthers?: string[],
+        public interestOthers?: string[],
+        public offeringOthers?: string[],
         public status?: ProfileStatus,
         public createdDate?: Moment,
         public createdBy?: string,
@@ -89,5 +60,30 @@ export class UserProfile implements IUserProfile {
         public userId?: number,
         public pics?: IPhotos[],
         public profileSettings?: IProfileSettings[]
-    ) {}
+    ) {
+        this.gender = 'male';
+    }
+}
+
+export interface City {
+    id: string;
+    name: string;
+}
+
+/** list of citys */
+export const Cities: City[] = [
+    { id: 'mumbai', name: 'Mumbai' },
+    { id: 'pune', name: 'Pune' },
+    { id: 'delhi', name: 'Delhi' },
+    { id: 'chennai', name: 'Chennai' }
+];
+
+export class PreferenceList {
+    name: string;
+    isDefault: boolean;
+    isSelected: boolean;
+    constructor() {
+        this.isDefault = true;
+        this.isSelected = false;
+    }
 }
